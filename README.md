@@ -10,8 +10,8 @@ In Color Crash, users will be able to:
 
 * Start a game by launching a ball with an angle(arrow that will move from 0-90 degrees) and a power(bar that will fill from 1-100%)
 * See the next 4 block colors that are are upcoming
-* Use boosts(on mouse click, either above the ball, for down boost, or below the ball, for up boost) to travel further.
-* Use specials(on mouse click when ball makes contact with an active special color, shown in the special bar located at top-middle of screen)
+* Use boosts(on mouse click, either above the ball, for down boost, or below the ball, for up boost) to travel further
+* Use specials(on mouse click when ball makes contact with an active special color, shown in the special bar located at top-middle of screen) to travel further
 * Score based on how far the ball travels(in feet)
 
 

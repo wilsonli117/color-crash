@@ -24,3 +24,19 @@ In addition, this project will include:
 ## 3. Wireframes
 
 ![Wireframe](https://tellurian.s3.amazonaws.com/Crash-Wireframe.png)
+
+## 4. Technologies used
+
+This game is implemented with:
+
+* Javascript for the game logic
+* HTML5 Canvas for graphics rendering
+* Webpack as the Javascript module bundler
+
+## 5. Implementation Timeline
+
+Day 1 - Set up project skeleton and review HTML5 Canvas
+Day 2 - Build ball object(with height and velocity) and implement launching feature. Build game map with background and continuous scrolling.
+Day 3 - Build colored-block object and implement interactions with ball. Build up and down boosts.
+Day 4 - Adding music, polishing graphics and add About Me and Instructions/Legend below game map.
+

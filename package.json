@@ -1,5 +1,5 @@
 {
-  "name": "tetris",
+  "name": "color-crash",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ligokdoon/tetris.git"
+    "url": "git+https://github.com/ligokdoon/color-crash.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ligokdoon/tetris/issues"
+    "url": "https://github.com/ligokdoon/color-crash/issues"
   },
-  "homepage": "https://github.com/ligokdoon/tetris#readme",
+  "homepage": "https://github.com/ligokdoon/color-crash#readme",
   "dependencies": {
     "@babel/core": "^7.11.6",
     "@babel/preset-env": "^7.11.5",

@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    const launchBall = setInterval(draw, 10);
+    // const launchBall = setInterval(draw, 10);
 
     let power = 0;
     let dpower = -10;
@@ -105,5 +105,41 @@ document.addEventListener("DOMContentLoaded", () => {
     //     clearInterval(launchPower);
     //     console.log(power);
     // })
+
+    
+    
+    const scrollSpeed = 1;
+    let scrollPos = 0; // pixel of where the draw second image
+    
+    let img = new Image();
+    img.src = "./src/background.png"
+
+    const backgroundLoop = () => {
+      
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+
+        if (scrollPos >= canvas.width) {
+            scrollPos = 0; //resets 
+        }
+
+        scrollPos += scrollSpeed
+
+        ctx.drawImage(img, -scrollPos, 0, 880, 320);
+        ctx.drawImage(img, canvas.width - scrollPos, 0, 880, 320);
+        // ctx.drawImage(img, imgWidth, 0, 880, 320, 321, 0)
+        
+        // if (imgWidth + scrollSpeed == canvas.width) {
+        //     imgWidth = 0;
+        // }
+        
+        
+       
+        window.requestAnimationFrame(backgroundLoop);
+    }
+
+    img.addEventListener('load', () => {
+        backgroundLoop();
+        // setInterval(backgroundLoop, 10);
+    })
 
 })

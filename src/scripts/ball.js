@@ -1,20 +1,22 @@
-const ballRadius = 10;
-const gravity;
-const friction;
+const ballRadius = 20;
+const gravity = .1; //constant force that acts upon ball
+const friction = 0.95; //5% energy loss when ball travels along a surface / x axis
+const bounce = 0.85; //15% energy loss when ball bounces or collides with object
 
 export class Ball {
-    constructor(position, velocity) {
-        this.x = position[0]
-        this.y = position[1]
+    constructor(canvas, velocity) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext("2d");
+        this.x = gamecanvas.width * 0.05 //starting x coordinate of ball
+        this.y = gamecanvas.height - ballRadius; //starting y coordinate of ball
 
         this.vx = velocity[0]
         this.vy = velocity[1]
-
-        this.falling = false;
-
+        this.targetHeight = this.canvas.height + (20 * this.vx);
     }
 
     drawBall(ctx) {
+        gamectx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         ctx.beginPath();
         ctx.arc(this.x, this.y, ballRadius, 0, Math.PI * 2, false);
         ctx.lineTo(this.x, this.y)
@@ -25,24 +27,25 @@ export class Ball {
     }
 
     move() {
+        //add gravity?
         this.x += this.vx;
         this.y += this.vy;
 
-        if (this.y + this.vy / rateOfMovement > canvas.height - ballRadius) {
-            dy = -(0.8 * dy);
-            targetHeight = canvas.height + (2 * dy);
+        //floor
+        if (this.y + this.vy >= canvas.height - ballRadius) {
+            this.vy *= -bounce
+            this.vx *= friction
+            this.y = this.canvas.height - ballRadius
         }
 
-        // if (dy > -100) {
-        //     dy = 0;
-        // }
+        if (this.vy  )
 
-        if (y <= targetHeight) {
-            dy = -dy;
-        }
-        // if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
-        //     dx = -dx;
-        // }
+        //ball moving
+        
+        this.x += this.vx;
+        this.y += this.vy;
+
+
     }
 
 

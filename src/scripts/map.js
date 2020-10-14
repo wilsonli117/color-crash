@@ -11,7 +11,7 @@ export class Map {
 
     drawBackground() {
         // ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+        debugger;
         if (this.scrollPos >= this.canvas.width) {
             this.scrollPos = 0; //resets 
         }

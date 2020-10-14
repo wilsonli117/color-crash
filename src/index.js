@@ -9,14 +9,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const ballRadius = 20;
     let x = gamecanvas.width * 0.05 //starting x coordinate of ball
-    let y = gamecanvas.height - ballRadius; //starting y coordiante of ball
+    let y = gamecanvas.height - ballRadius; //starting y coordinate of ball
     // let launchPowerX = canvas.width * 0.05
     // let launchPowerY = canvas.height * 0.90
-    let dx = 1000; //hard-coded x velocity of ball
-    let dy = -500; // hard-coded y velocity of ball
-    const rateOfMovement = 10;
-    let targetHeight = gamecanvas.height + (2 * dy);
-    let scrollSpeed = Math.floor(dx / 100);
+    const gravity = .1;
+    const speed = 20;
+    const angle = 280 * (Math.PI / 180);
+    const bounce = 0.80;
+    const friction = 0.95;
+    let vx = Math.cos(angle) * speed;
+    let vy = Math.sin(angle) * speed;
+    let scrollSpeed = Math.floor(vx * 5);
   
     const drawBall = () => {
         // if (dy > -1) {
@@ -33,50 +36,68 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const draw = () => {
-        
         gamectx.clearRect(0, 0, gamecanvas.width, gamecanvas.height);
         drawBall();
-        y += dy/rateOfMovement;
-        x += dx/500;
-        if (y + dy / rateOfMovement > gamecanvas.height - ballRadius) {
-            dy = -(0.88 * dy); //reduce velocity when ball hits "floor"
-            dx = (0.88 * dx);
-            scrollSpeed = Math.floor(dx / 100);
-            if (scrollSpeed > 1) {
-                map.scrollSpeed = scrollSpeed;
-            }
-            targetHeight = gamecanvas.height + (2 * dy);
-        }
 
-        if (dy < 0 && dy > -50) {
-            debugger;
-            dy = 0;
-            dy = 0;
-            y = gamecanvas.height - ballRadius - 5;
+        vy += gravity;
+        
+        if(y + ballRadius + vy > gamecanvas.height) {
+            vy *= -bounce;
+            vx *= friction;
+            scrollSpeed = Math.floor(vx * 5);
             map.scrollSpeed = scrollSpeed;
         }
 
-        if (y <= targetHeight) {
-            dy = -dy;
+        if (vx < .5) {
+            vy = 0;
+            vx = 0;
+            y = gamecanvas.height - ballRadius - 2;
+            map.scrollSpeed = 0; //stop scrolling
         }
 
-        if (x + dx > gamecanvas.width - ballRadius || x + dx < ballRadius) {
-            dx = -dx;
-        }
+        y += vy
+        x += vx/10;
+        // if (y + dy / rateOfMovement > gamecanvas.height - ballRadius) {
+        //     dy = -(0.88 * dy); //reduce velocity when ball hits "floor"
+        //     dx = (0.88 * dx);
+        //     scrollSpeed = Math.floor(dx / 100);
+        //     if (scrollSpeed > 1) {
+        //         map.scrollSpeed = scrollSpeed;
+        //     }
+        //     targetHeight = gamecanvas.height + (2 * dy);
+        // }
 
+        // if (dy < 0 && dy > -50) {
+        //     debugger;
+        //     dy = 0;
+        //     dy = 0;
+        //     y = gamecanvas.height - ballRadius - 5;
+        //     map.scrollSpeed = scrollSpeed;
+        // }
+
+        // if (y <= targetHeight) {
+        //     dy = -dy;
+        // }
+
+        // if (x + dx > gamecanvas.width - ballRadius || x + dx < ballRadius) {
+        //     dx = -dx;
+        // }
         requestAnimationFrame(draw);
     }
 
     let img = new Image();
     img.src = "./src/background.png"
-    img.addEventListener('load', draw)
-
+    img.addEventListener('load', draw);
+    
     const map = new Map(scrollSpeed, bgcanvas, img)
 
-    const animationId = map.animate();
+    const mapAnimationId = map.animate();
 
-    let power = 0;
-    let dpower = -10;
+
+    // map.animate();
+
+    // let power = 0;
+    // let dpower = -10;
 
     // const drawLaunchPower = () => {
     //     if (power + dpower < 0 || power + dpower > 100) {

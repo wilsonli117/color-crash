@@ -11,7 +11,6 @@ export class Map {
 
     drawBackground() {
         // ctx.clearRect(0, 0, canvas.width, canvas.height);
-        debugger;
         if (this.scrollPos >= this.canvas.width) {
             this.scrollPos = 0; //resets 
         }
@@ -20,7 +19,7 @@ export class Map {
         this.ctx.drawImage(this.backGround, -this.scrollPos, 0, this.canvas.width, this.canvas.height);
         this.ctx.drawImage(this.backGround, this.canvas.width - this.scrollPos, 0, this.canvas.width, this.canvas.height);
       
-        return requestAnimationFrame(this.drawBackground);
+        // return requestAnimationFrame(this.drawBackground);
     }
     
     animate() {

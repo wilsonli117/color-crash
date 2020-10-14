@@ -1,5 +1,6 @@
 import "./styles/index.scss";
 import { Map } from './scripts/map';
+import { Ball } from './scripts/ball';
 
 document.addEventListener("DOMContentLoaded", () => {
     const bgcanvas = document.getElementById("bgCanvas");
@@ -19,44 +20,44 @@ document.addEventListener("DOMContentLoaded", () => {
     const friction = 0.95;
     let vx = Math.cos(angle) * speed;
     let vy = Math.sin(angle) * speed;
-    let scrollSpeed = Math.floor(vx * 5);
+    let scrollSpeed = Math.floor(vx * 7);
   
-    const drawBall = () => {
-        // if (dy > -1) {
-        //     clearInterval(launchBall);
-        // }
+    // const drawBall = () => {
+    //     // if (dy > -1) {
+    //     //     clearInterval(launchBall);
+    //     // }
         
-        gamectx.beginPath();
-        gamectx.arc(x, y, ballRadius, 0, Math.PI * 2, false);
-        gamectx.lineTo(x, y)
-        gamectx.stroke();
-        gamectx.fillStyle = "green"
-        gamectx.fill();
-        gamectx.closePath();
-    }
+    //     gamectx.beginPath();
+    //     gamectx.arc(x, y, ballRadius, 0, Math.PI * 2, false);
+    //     gamectx.lineTo(x, y)
+    //     gamectx.stroke();
+    //     gamectx.fillStyle = "green"
+    //     gamectx.fill();
+    //     gamectx.closePath();
+    // }
 
-    const draw = () => {
-        gamectx.clearRect(0, 0, gamecanvas.width, gamecanvas.height);
-        drawBall();
+    // const draw = () => {
+    //     gamectx.clearRect(0, 0, gamecanvas.width, gamecanvas.height);
+    //     drawBall();
 
-        vy += gravity;
+    //     vy += gravity;
         
-        if(y + ballRadius + vy > gamecanvas.height) {
-            vy *= -bounce;
-            vx *= friction;
-            scrollSpeed = Math.floor(vx * 5);
-            map.scrollSpeed = scrollSpeed;
-        }
+    //     if(y + vy >= gamecanvas.height - ballRadius) {
+    //         vy *= -bounce;
+    //         vx *= friction;
+    //         scrollSpeed = Math.floor(vx * 5);
+    //         map.scrollSpeed = scrollSpeed;
+    //     }
 
-        if (vx < .5) {
-            vy = 0;
-            vx = 0;
-            y = gamecanvas.height - ballRadius - 2;
-            map.scrollSpeed = 0; //stop scrolling
-        }
+    //     if (vx < 1) {
+    //         vy = 0;
+    //         vx = 0;
+    //         y = gamecanvas.height - ballRadius - 2;
+    //         map.scrollSpeed = 0; //stop scrolling
+    //     }
 
-        y += vy
-        x += vx/10;
+    //     y += vy
+    //     x += vx/10;
         // if (y + dy / rateOfMovement > gamecanvas.height - ballRadius) {
         //     dy = -(0.88 * dy); //reduce velocity when ball hits "floor"
         //     dx = (0.88 * dx);
@@ -82,19 +83,29 @@ document.addEventListener("DOMContentLoaded", () => {
         // if (x + dx > gamecanvas.width - ballRadius || x + dx < ballRadius) {
         //     dx = -dx;
         // }
-        requestAnimationFrame(draw);
-    }
+    //     requestAnimationFrame(draw);
+    // }
 
     let img = new Image();
     img.src = "./src/background.png"
-    img.addEventListener('load', draw);
-    
-    const map = new Map(scrollSpeed, bgcanvas, img)
+    // img.addEventListener('load', draw);
+    const ball = new Ball(gamecanvas, 20, 280);
+    const map = new Map(ball.scrollSpeed, bgcanvas, img)
 
-    const mapAnimationId = map.animate();
+    // const mapAnimationId = map.animate();
+    const animate = () => {
+        ball.animate();
+        map.animate();
+        map.scrollSpeed = ball.scrollSpeed;
+        debugger;
+        if (ball.vx < 1) {
+            map.scrollSpeed = 0;
+        }
 
-
-    // map.animate();
+        requestAnimationFrame(animate);
+    }
+   
+    animate();
 
     // let power = 0;
     // let dpower = -10;

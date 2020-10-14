@@ -1,60 +1,79 @@
 import "./styles/index.scss";
+import { Map } from './scripts/map';
 
 document.addEventListener("DOMContentLoaded", () => {
-    var canvas = document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
+    const bgcanvas = document.getElementById("bgCanvas");
+    const bgctx = bgcanvas.getContext("2d");
+    const gamecanvas = document.getElementById("gameCanvas");
+    const gamectx = gamecanvas.getContext("2d");
 
-    const ballRadius = 10;
-    let x = canvas.width * 0.05 //starting x coordinate of ball
-    let y = canvas.height - ballRadius; //starting y coordiante of ball
+    const ballRadius = 20;
+    let x = gamecanvas.width * 0.05 //starting x coordinate of ball
+    let y = gamecanvas.height - ballRadius; //starting y coordiante of ball
     // let launchPowerX = canvas.width * 0.05
     // let launchPowerY = canvas.height * 0.90
     let dx = 1000; //hard-coded x velocity of ball
-    let dy = -1000; // hard-coded y velocity of ball
-    const rateOfMovement = 50;
-    let targetHeight = canvas.height + (2 * dy);
+    let dy = -500; // hard-coded y velocity of ball
+    const rateOfMovement = 10;
+    let targetHeight = gamecanvas.height + (2 * dy);
+    let scrollSpeed = Math.floor(dx / 100);
   
-
     const drawBall = () => {
         // if (dy > -1) {
         //     clearInterval(launchBall);
         // }
         
-        ctx.beginPath();
-        ctx.arc(x, y, ballRadius, 0, Math.PI * 2, false);
-        ctx.lineTo(x, y)
-        ctx.stroke();
-        ctx.fillStyle = "green"
-        ctx.fill();
-        ctx.closePath();
+        gamectx.beginPath();
+        gamectx.arc(x, y, ballRadius, 0, Math.PI * 2, false);
+        gamectx.lineTo(x, y)
+        gamectx.stroke();
+        gamectx.fillStyle = "green"
+        gamectx.fill();
+        gamectx.closePath();
     }
 
     const draw = () => {
-        debugger;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        y += dy/rateOfMovement;
-        // x += dx/rateOfMovement*10;
+        
+        gamectx.clearRect(0, 0, gamecanvas.width, gamecanvas.height);
         drawBall();
-        if (y + dy / rateOfMovement > canvas.height - ballRadius) {
-            dy = -(0.6 * dy); //reduce velocity when ball hits "floor"
-            targetHeight = canvas.height + (2 * dy);
+        y += dy/rateOfMovement;
+        x += dx/500;
+        if (y + dy / rateOfMovement > gamecanvas.height - ballRadius) {
+            dy = -(0.88 * dy); //reduce velocity when ball hits "floor"
+            dx = (0.88 * dx);
+            scrollSpeed = Math.floor(dx / 100);
+            if (scrollSpeed > 1) {
+                map.scrollSpeed = scrollSpeed;
+            }
+            targetHeight = gamecanvas.height + (2 * dy);
         }
 
-        if (dy < 0 && dy > -10) {
+        if (dy < 0 && dy > -50) {
+            debugger;
             dy = 0;
-            y = canvas.height - ballRadius;
+            dy = 0;
+            y = gamecanvas.height - ballRadius - 5;
+            map.scrollSpeed = scrollSpeed;
         }
 
         if (y <= targetHeight) {
             dy = -dy;
         }
 
-        if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+        if (x + dx > gamecanvas.width - ballRadius || x + dx < ballRadius) {
             dx = -dx;
         }
+
+        requestAnimationFrame(draw);
     }
 
-    // const launchBall = setInterval(draw, 10);
+    let img = new Image();
+    img.src = "./src/background.png"
+    img.addEventListener('load', draw)
+
+    const map = new Map(scrollSpeed, bgcanvas, img)
+
+    const animationId = map.animate();
 
     let power = 0;
     let dpower = -10;
@@ -105,41 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
     //     clearInterval(launchPower);
     //     console.log(power);
     // })
-
     
-    
-    const scrollSpeed = 1;
-    let scrollPos = 0; // pixel of where the draw second image
-    
-    let img = new Image();
-    img.src = "./src/background.png"
-
-    const backgroundLoop = () => {
-      
-        ctx.clearRect(0,0, canvas.width, canvas.height);
-
-        if (scrollPos >= canvas.width) {
-            scrollPos = 0; //resets 
-        }
-
-        scrollPos += scrollSpeed
-
-        ctx.drawImage(img, -scrollPos, 0, 880, 320);
-        ctx.drawImage(img, canvas.width - scrollPos, 0, 880, 320);
-        // ctx.drawImage(img, imgWidth, 0, 880, 320, 321, 0)
-        
-        // if (imgWidth + scrollSpeed == canvas.width) {
-        //     imgWidth = 0;
-        // }
-        
-        
-       
-        window.requestAnimationFrame(backgroundLoop);
-    }
-
-    img.addEventListener('load', () => {
-        backgroundLoop();
-        // setInterval(backgroundLoop, 10);
-    })
-
+ 
 })

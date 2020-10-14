@@ -1,4 +1,6 @@
 const ballRadius = 10;
+const gravity;
+const friction;
 
 export class Ball {
     constructor(position, velocity) {

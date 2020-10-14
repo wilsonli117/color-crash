@@ -7,9 +7,8 @@
     <link rel="stylesheet" href="./dist/main.css" />
 </head>
 <body>
-    <div id="canvasdiv" style="width: 880px; height: 320px; overflow: hidden;">
-        <canvas id="myCanvas" width="880" height="320" style="border: 1px solid red"></canvas>
-    </div>
+        <canvas id="bgCanvas" width="1400" height="640" style="position: relative;"></canvas>
+        <canvas id="gameCanvas" width="1400" height="640" style="background: transparent; position: absolute; top: 8px; left: 8px; z-index: 3;"></canvas>
     <script src="./dist/main.js"></script>
 </body>
 </html>

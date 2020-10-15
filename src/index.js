@@ -1,6 +1,7 @@
 import "./styles/index.scss";
 import { Map } from './scripts/map';
 import { Ball } from './scripts/ball';
+import { Launcher } from './scripts/launcher';
 
 document.addEventListener("DOMContentLoaded", () => {
     const bgcanvas = document.getElementById("bgCanvas");
@@ -26,91 +27,94 @@ document.addEventListener("DOMContentLoaded", () => {
 
         requestAnimationFrame(animate);
     }
+
+    const launcher = new Launcher(gamecanvas);
+
+    launcher.animate();
    
     // animate();
 
 
 
-    let power = 0;
-    let dpower = 10;
-    let x = gamecanvas.width * 0.05
-    let y = gamecanvas.height * 0.90
+    // let power = 0;
+    // let dpower = 10;
+    // let x = gamecanvas.width * 0.05
+    // let y = gamecanvas.height * 0.90
 
-    const drawLaunchPower = () => {
-        if (power + dpower < 0 || power + dpower > 100) {
-            dpower = -dpower
-        } 
-        gamectx.beginPath();
-        gamectx.arc(x, y, power, 0, Math.PI * 1.5, true);
-        gamectx.lineTo(x, y)
-        gamectx.stroke();
-        gamectx.fillStyle = "orange"
-        gamectx.fill();
-        gamectx.closePath();
-    }
+    // const drawLaunchPower = () => {
+    //     if (power + dpower < 0 || power + dpower > 100) {
+    //         dpower = -dpower
+    //     } 
+    //     gamectx.beginPath();
+    //     gamectx.arc(x, y, power, 0, Math.PI * 1.5, true);
+    //     gamectx.lineTo(x, y)
+    //     gamectx.stroke();
+    //     gamectx.fillStyle = "orange"
+    //     gamectx.fill();
+    //     gamectx.closePath();
+    // }
 
-    const launchAnimation = () => {
-        gamectx.clearRect(0,0, gamecanvas.width, gamecanvas.height);
-        power += dpower;
-        drawLaunchPower();
+    // const launchAnimation = () => {
+    //     gamectx.clearRect(0,0, gamecanvas.width, gamecanvas.height);
+    //     power += dpower;
+    //     drawLaunchPower();
 
-        // requestAnimationFrame(launchAnimation);
-    }
+    //     // requestAnimationFrame(launchAnimation);
+    // }
 
-    let ang = 271
-    let radang = ang * (Math.PI / 180);
-    let dir = 1;
+    // let ang = 271
+    // let radang = ang * (Math.PI / 180);
+    // let dir = 1;
 
-    const drawLaunchAngle = () => {
-        gamectx.beginPath();
-        gamectx.moveTo(x, y)
-        gamectx.lineTo(x + (Math.cos(radang) * 100), y + (Math.sin(radang) * 100))
-        gamectx.stroke();
-        gamectx.closePath();
-    }
+    // const drawLaunchAngle = () => {
+    //     gamectx.beginPath();
+    //     gamectx.moveTo(x, y)
+    //     gamectx.lineTo(x + (Math.cos(radang) * 100), y + (Math.sin(radang) * 100))
+    //     gamectx.stroke();
+    //     gamectx.closePath();
+    // }
 
 
     // drawLaunchAngle();
 
-    const drawLaunchAngleAnimation = () => {
-        gamectx.clearRect(0,0, gamecanvas.width, gamecanvas.height);
-        drawLaunchAngle();
-        if (ang === 359) {
-            dir = -1;
+    // const drawLaunchAngleAnimation = () => {
+    //     gamectx.clearRect(0,0, gamecanvas.width, gamecanvas.height);
+    //     drawLaunchAngle();
+    //     if (ang === 359) {
+    //         dir = -1;
 
-        } else if (ang === 271) {
-            dir = 1;
-        }
-        ang += dir
-        radang = ang * (Math.PI / 180);
+    //     } else if (ang === 271) {
+    //         dir = 1;
+    //     }
+    //     ang += dir
+    //     radang = ang * (Math.PI / 180);
         
-    }
+    // }
 
-    const anganimation = setInterval(drawLaunchAngleAnimation, 10);
+    // const anganimation = setInterval(drawLaunchAngleAnimation, 10);
 
-    let launchAngle = undefined;
-    let launchPower = undefined;
-    let poweranimation;
+    // let launchAngle = undefined;
+    // let launchPower = undefined;
+    // let poweranimation;
 
-    const launchstart = () => {
-        if (!launchAngle) {
-            clearInterval(anganimation);
-            launchAngle = ang;
-            console.log(-(ang - 360));
-            ball.angle = launchAngle * (Math.PI / 180)
-            poweranimation = setInterval(launchAnimation, 50);
-        } else {
-            clearInterval(poweranimation);
-            launchPower = power;
-            console.log(power);
-            ball.speed = launchPower;
-            gamecanvas.removeEventListener("click", launchstart);
+    // const launchstart = () => {
+    //     if (!launchAngle) {
+    //         clearInterval(anganimation);
+    //         launchAngle = ang;
+    //         console.log(-(ang - 360));
+    //         ball.angle = launchAngle * (Math.PI / 180)
+    //         poweranimation = setInterval(launchAnimation, 50);
+    //     } else {
+    //         clearInterval(poweranimation);
+    //         launchPower = power;
+    //         console.log(power);
+    //         ball.speed = launchPower;
+    //         gamecanvas.removeEventListener("click", launchstart);
             
-            animate();
-        }
-    }
+    //         animate();
+    //     }
+    // }
 
-    gamecanvas.addEventListener("click", launchstart)
     
  
 })

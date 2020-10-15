@@ -10,12 +10,22 @@ export class Ball {
         this.angle = angle * (Math.PI / 180); //need to convert to radians
         this.x = this.canvas.width * 0.05 //starting x coordinate of ball
         this.y = this.canvas.height - ballRadius; //starting y coordinate of ball
-
+        this.speed = speed;
         this.vx = Math.cos(this.angle) * speed;
         this.vy = Math.sin(this.angle) * speed;
         this.scrollSpeed = Math.floor(this.vx * 7);
         this.drawBall = this.drawBall.bind(this);
         this.move = this.move.bind(this);
+        this.boost = this.boost.bind(this);
+    }
+
+    boost() {
+        debugger;
+        // this.x += 20;
+        if (this.y > 0) {
+            this.vy *= -1.5;
+            this.scrollSpeed = Math.floor(this.vx * 7)
+        }
     }
 
     drawBall() {
@@ -29,7 +39,7 @@ export class Ball {
         this.ctx.closePath();
     }
 
-    move(map) {
+    move() {
         this.drawBall();
         this.vy += gravity;
 
@@ -38,7 +48,6 @@ export class Ball {
             this.vy *= -bounce;
             this.vx *= friction;
             this.scrollSpeed = Math.floor(this.vx * 7);
-            // map.scrollSpeed = this.scrollSpeed;
         }
 
         //smooth stopping for insignificant vx values 
@@ -46,17 +55,17 @@ export class Ball {
             this.vy = 0;
             this.vx = 0;
             this.y = this.canvas.height - ballRadius - 2;
-            // map.scrollSpeed = 0; //stop scrolling
         }
 
-        this.y += this.vy;
         this.x += this.vx/10; //control vx to not have ball go off right viewport, use bg scroll as speed illusion
+        this.y += this.vy;
 
         // requestAnimationFrame(this.move); //will return an animation ID 
     }
 
     animate() {
-        return this.move();
+        this.move();
+        this.canvas.addEventListener('click', this.boost)
     }
 }
 

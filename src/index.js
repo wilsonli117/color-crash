@@ -8,96 +8,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const gamecanvas = document.getElementById("gameCanvas");
     const gamectx = gamecanvas.getContext("2d");
 
-    const ballRadius = 20;
-    let x = gamecanvas.width * 0.05 //starting x coordinate of ball
-    let y = gamecanvas.height - ballRadius; //starting y coordinate of ball
-    // let launchPowerX = canvas.width * 0.05
-    // let launchPowerY = canvas.height * 0.90
-    const gravity = .1;
-    const speed = 20;
-    const angle = 280 * (Math.PI / 180);
-    const bounce = 0.80;
-    const friction = 0.95;
-    let vx = Math.cos(angle) * speed;
-    let vy = Math.sin(angle) * speed;
-    let scrollSpeed = Math.floor(vx * 7);
-  
-    // const drawBall = () => {
-    //     // if (dy > -1) {
-    //     //     clearInterval(launchBall);
-    //     // }
-        
-    //     gamectx.beginPath();
-    //     gamectx.arc(x, y, ballRadius, 0, Math.PI * 2, false);
-    //     gamectx.lineTo(x, y)
-    //     gamectx.stroke();
-    //     gamectx.fillStyle = "green"
-    //     gamectx.fill();
-    //     gamectx.closePath();
-    // }
-
-    // const draw = () => {
-    //     gamectx.clearRect(0, 0, gamecanvas.width, gamecanvas.height);
-    //     drawBall();
-
-    //     vy += gravity;
-        
-    //     if(y + vy >= gamecanvas.height - ballRadius) {
-    //         vy *= -bounce;
-    //         vx *= friction;
-    //         scrollSpeed = Math.floor(vx * 5);
-    //         map.scrollSpeed = scrollSpeed;
-    //     }
-
-    //     if (vx < 1) {
-    //         vy = 0;
-    //         vx = 0;
-    //         y = gamecanvas.height - ballRadius - 2;
-    //         map.scrollSpeed = 0; //stop scrolling
-    //     }
-
-    //     y += vy
-    //     x += vx/10;
-        // if (y + dy / rateOfMovement > gamecanvas.height - ballRadius) {
-        //     dy = -(0.88 * dy); //reduce velocity when ball hits "floor"
-        //     dx = (0.88 * dx);
-        //     scrollSpeed = Math.floor(dx / 100);
-        //     if (scrollSpeed > 1) {
-        //         map.scrollSpeed = scrollSpeed;
-        //     }
-        //     targetHeight = gamecanvas.height + (2 * dy);
-        // }
-
-        // if (dy < 0 && dy > -50) {
-        //     debugger;
-        //     dy = 0;
-        //     dy = 0;
-        //     y = gamecanvas.height - ballRadius - 5;
-        //     map.scrollSpeed = scrollSpeed;
-        // }
-
-        // if (y <= targetHeight) {
-        //     dy = -dy;
-        // }
-
-        // if (x + dx > gamecanvas.width - ballRadius || x + dx < ballRadius) {
-        //     dx = -dx;
-        // }
-    //     requestAnimationFrame(draw);
-    // }
-
+ 
     let img = new Image();
     img.src = "./src/background.png"
     // img.addEventListener('load', draw);
     const ball = new Ball(gamecanvas, 20, 280);
-    const map = new Map(ball.scrollSpeed, bgcanvas, img)
+    const map = new Map(ball.scrollSpeed, bgcanvas, img) //initial scroll speed based on initial ball velocity
 
     // const mapAnimationId = map.animate();
     const animate = () => {
         ball.animate();
         map.animate();
-        map.scrollSpeed = ball.scrollSpeed;
-        debugger;
+        map.scrollSpeed = ball.scrollSpeed; //will update every frame
         if (ball.vx < 1) {
             map.scrollSpeed = 0;
         }
@@ -105,57 +27,90 @@ document.addEventListener("DOMContentLoaded", () => {
         requestAnimationFrame(animate);
     }
    
-    animate();
-
-    // let power = 0;
-    // let dpower = -10;
-
-    // const drawLaunchPower = () => {
-    //     if (power + dpower < 0 || power + dpower > 100) {
-    //         dpower = -dpower
-    //     } 
-    //     ctx.beginPath();
-    //     ctx.arc(launchPowerX, launchPowerY, power, 0, Math.PI * 1.5, true);
-    //     ctx.lineTo(launchPowerX, launchPowerY)
-    //     ctx.stroke();
-    //     ctx.fillStyle = "orange"
-    //     ctx.fill();
-    //     ctx.closePath();
-    // }
-
-    // const drawLaunchPowerAnimation = () => {
-    //     ctx.clearRect(0,0, canvas.width, canvas.height);
-    //     drawLaunchPower();
-    //     drawLaunchAngle();
-    //     power += dpower;
-    // }
-
-    // const launchPower = setInterval(drawLaunchPowerAnimation, 100);
-    
-
-    // let launchAngleX = canvas.width * 0.05
-    // let launchAngleY = canvas.height * 0.90
-
-    // const drawLaunchAngle = () => {
-    //     ctx.beginPath();
-    //     ctx.moveTo(launchAngleX, launchAngleY)
-    //     ctx.lineTo(launchAngleX + 70, launchAngleY - 70)
-    //     ctx.stroke();
-    //     ctx.closePath();
-    // }
+    // animate();
 
 
 
-    // const drawLaunchAngleAnimation = () => {
-    //     ctx.clearRect(0,0, canvas.width, canvas.height);
-    //     drawLaunchAngle();
+    let power = 0;
+    let dpower = 10;
+    let x = gamecanvas.width * 0.05
+    let y = gamecanvas.height * 0.90
 
-    // }
+    const drawLaunchPower = () => {
+        if (power + dpower < 0 || power + dpower > 100) {
+            dpower = -dpower
+        } 
+        gamectx.beginPath();
+        gamectx.arc(x, y, power, 0, Math.PI * 1.5, true);
+        gamectx.lineTo(x, y)
+        gamectx.stroke();
+        gamectx.fillStyle = "orange"
+        gamectx.fill();
+        gamectx.closePath();
+    }
 
-    // canvas.addEventListener("click", () => {
-    //     clearInterval(launchPower);
-    //     console.log(power);
-    // })
+    const launchAnimation = () => {
+        gamectx.clearRect(0,0, gamecanvas.width, gamecanvas.height);
+        power += dpower;
+        drawLaunchPower();
+
+        // requestAnimationFrame(launchAnimation);
+    }
+
+    let ang = 271
+    let radang = ang * (Math.PI / 180);
+    let dir = 1;
+
+    const drawLaunchAngle = () => {
+        gamectx.beginPath();
+        gamectx.moveTo(x, y)
+        gamectx.lineTo(x + (Math.cos(radang) * 100), y + (Math.sin(radang) * 100))
+        gamectx.stroke();
+        gamectx.closePath();
+    }
+
+
+    // drawLaunchAngle();
+
+    const drawLaunchAngleAnimation = () => {
+        gamectx.clearRect(0,0, gamecanvas.width, gamecanvas.height);
+        drawLaunchAngle();
+        if (ang === 359) {
+            dir = -1;
+
+        } else if (ang === 271) {
+            dir = 1;
+        }
+        ang += dir
+        radang = ang * (Math.PI / 180);
+        
+    }
+
+    const anganimation = setInterval(drawLaunchAngleAnimation, 10);
+
+    let launchAngle = undefined;
+    let launchPower = undefined;
+    let poweranimation;
+
+    const launchstart = () => {
+        if (!launchAngle) {
+            clearInterval(anganimation);
+            launchAngle = ang;
+            console.log(-(ang - 360));
+            ball.angle = launchAngle * (Math.PI / 180)
+            poweranimation = setInterval(launchAnimation, 50);
+        } else {
+            clearInterval(poweranimation);
+            launchPower = power;
+            console.log(power);
+            ball.speed = launchPower;
+            gamecanvas.removeEventListener("click", launchstart);
+            
+            animate();
+        }
+    }
+
+    gamecanvas.addEventListener("click", launchstart)
     
  
 })

@@ -19,7 +19,6 @@ export class Launcher {
     }
 
     drawPower() {
-        debugger;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.beginPath();
         this.ctx.moveTo(this.x, this.y);

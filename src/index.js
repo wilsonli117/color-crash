@@ -22,8 +22,13 @@ document.addEventListener("DOMContentLoaded", () => {
         gamecanvas.addEventListener("click", launch);
     }
 
+    const stop = () => {
+        debugger;
+        return cancelAnimationFrame(animationId);
+    }
+
     const launch = () => {
-        if (launcher.launchAngle && launcher.launchPower) {
+        if (launcher.launchAngle && launcher.launchPower >= 0) {
             gamecanvas.removeEventListener("click", launch);
             ball = new Ball(gamecanvas, launcher.launchPower, launcher.launchAngle);
             map = new Map(ball.scrollSpeed, bgcanvas, img) //initial scroll speed based on initial ball velocity
@@ -31,22 +36,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    let animationId;
+    let animating = true;
 
     const animate = () => {
         ball.animate();
         map.animate();
 
-        map.scrollSpeed = ball.scrollSpeed; //will update every frame
-        if (ball.vx < .1) {
-            map.scrollSpeed = 0;
-            cancelAnimationFrame(animationId);
-        }
 
-        animationId = requestAnimationFrame(animate);
+        map.scrollSpeed = ball.scrollSpeed; //will update every frame
+        if (ball.scrollSpeed == 0) {
+            animating = false;
+        }
+        
+
+        if (animating) {
+            requestAnimationFrame(animate);
+        }
     }
 
-
     start();
- 
+
 })

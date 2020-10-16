@@ -1,7 +1,7 @@
 const ballRadius = 20;
 const gravity = .1; //constant force that acts upon ball
 const bounce = 0.88; //20% energy loss when ball bounces or collides with object
-const friction = 0.80; //5% energy loss when ball travels along a surface / x axis
+const friction = 0.95; //5% energy loss when ball travels along a surface / x axis
 
 export class Ball {
     constructor(canvas, power, angle) {
@@ -15,17 +15,20 @@ export class Ball {
         this.vx = Math.cos(this.angle) * (this.power/20);
         this.vy = Math.sin(this.angle) * (this.power/2);
         this.scrollSpeed = Math.floor(this.vx * 10);
+        this.distance = 0;
         this.drawBall = this.drawBall.bind(this);
         this.move = this.move.bind(this);
         this.boost = this.boost.bind(this);
+        this.numBoosts = 3;
         this.time = Date.now() // in ms
     }
 
     boost() {
-        if (this.y > 0) {
-            this.vy *= -1.3;
-            this.vx *= 1.3;
+        if (this.y > 0 && this.numBoosts > 0) {
+            this.vy *= -1.15;
+            this.vx *= 1.1;
             this.scrollSpeed = Math.floor(this.vx * 10)
+            this.numBoosts -= 1;
         }
     }
 
@@ -48,12 +51,15 @@ export class Ball {
 
     magnitude() {
         let result;
-        const vx = this.vx * 20
+        if (this.vx < .2) {
+            debugger;
+            return "0";
+        }
+        const vx = this.vx * 20; 
         const vy = this.vy * 2
-        // result = `${Math.sqrt(vx**2 + vy**2)}`; //this would be true magnitude but showing just vx is cleaner
-        result = `${vx}`
-        debugger;
-        if (vx < 100) {
+        result = `${Math.sqrt(vx**2 + vy**2)}`; 
+        // result = `${vx}`
+        if (result < 100) {
             return result.slice(0,5);
         } else {
             return result.slice(0,6);
@@ -68,6 +74,10 @@ export class Ball {
         }
     } 
 
+    distanceTraveled() {
+        this.distance = Math.floor(Math.cos(this.angle) * this.power * ((Date.now() - this.time)) / 1000)
+    }
+
     drawBall() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.beginPath();
@@ -77,15 +87,16 @@ export class Ball {
         this.ctx.fillStyle = "blue";
         this.ctx.fill();
         this.ctx.strokeText(`${this.offScreenHeight()}`, 350, 50);
+        this.ctx.strokeText(`Distance: ${this.distance} ft`, 1100, 50);
         this.ctx.strokeText(`${this.timeElapsed()}`, 1100, 100);
         this.ctx.strokeText(`Velocity: ${this.magnitude()} ft/s`, 1100, 150);
         this.ctx.closePath();
     }
 
     move() {
-        this.drawBall();
+        // this.drawBall();
         this.vy += gravity;
-
+        this.distanceTraveled();
         //bounce 
         if (this.y + ballRadius + this.vy >= this.canvas.height) {
             this.vy *= -bounce;
@@ -94,15 +105,24 @@ export class Ball {
         }
 
         //smooth stopping for insignificant vx values 
-        if (this.vx < .05) {
+        if (this.vx < .2 && this.vy < .2 && this.vy > -.2) {
             this.vy = 0;
-            this.vx = 0;
+            this.vx -= .075;
             this.y = this.canvas.height - ballRadius - 2;
+            this.scrollSpeed = 0;
         }
 
-        this.x += this.vx/10; //control vx to prevent ball going off right-side viewport, use bg scroll as speed illusion
+        if (this.vx < 4 && this.vx > 1) {
+            this.x += this.vx/20; //control vx to prevent ball going off right-side viewport, use bg scroll as speed illusion
+        } else if (this.vx < 1 && this.vx > .1){
+            this.x += this.vx/5;
+        } else if (this.vx < .1 && this.vx > .01) {
+            this.x += this.vx;
+        } else {
+            this.x += this.vx/40;
+        }
         this.y += this.vy;
-
+        this.drawBall();
         // requestAnimationFrame(this.move); //will return an animation ID 
     }
 

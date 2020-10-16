@@ -24,13 +24,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const launch = () => {
         if (launcher.launchAngle && launcher.launchPower) {
-            debugger;
             gamecanvas.removeEventListener("click", launch);
             ball = new Ball(gamecanvas, launcher.launchPower, launcher.launchAngle);
             map = new Map(ball.scrollSpeed, bgcanvas, img) //initial scroll speed based on initial ball velocity
             animate();
         }
     }
+
+    let animationId;
 
     const animate = () => {
         ball.animate();
@@ -39,10 +40,12 @@ document.addEventListener("DOMContentLoaded", () => {
         map.scrollSpeed = ball.scrollSpeed; //will update every frame
         if (ball.vx < .1) {
             map.scrollSpeed = 0;
+            cancelAnimationFrame(animationId);
         }
 
-        requestAnimationFrame(animate);
+        animationId = requestAnimationFrame(animate);
     }
+
 
     start();
  

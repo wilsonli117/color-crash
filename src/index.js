@@ -5,7 +5,9 @@ import { Launcher } from './scripts/launcher';
 
 document.addEventListener("DOMContentLoaded", () => {
     const bgcanvas = document.getElementById("bgCanvas");
+    const bgctx = bgcanvas.getContext("2d");
     const gamecanvas = document.getElementById("gameCanvas");
+    const gamectx = gamecanvas.getContext("2d");
 
     let img = new Image();
     img.src = "./src/background.png"
@@ -18,13 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let map;
 
     const start = () => {
+        bgctx.clearRect(0, 0, gamecanvas.width, gamecanvas.height);
+        gamecanvas.removeEventListener("click", start);
         launcher.animate();
         gamecanvas.addEventListener("click", launch);
-    }
-
-    const stop = () => {
-        debugger;
-        return cancelAnimationFrame(animationId);
     }
 
     const launch = () => {
@@ -32,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
             gamecanvas.removeEventListener("click", launch);
             ball = new Ball(gamecanvas, launcher.launchPower, launcher.launchAngle);
             map = new Map(ball.scrollSpeed, bgcanvas, img) //initial scroll speed based on initial ball velocity
+            animating = true;
             animate();
         }
     }
@@ -45,7 +45,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         map.scrollSpeed = ball.scrollSpeed; //will update every frame
         if (ball.scrollSpeed == 0) {
+            // gamectx.clearRect(680, 305, 40, 30);
+            gamectx.beginPath();
+            gamectx.rect(400, 170, 500, 300);
+            gamectx.stroke();
+            gamectx.font = "30px Arial bold";
+            gamectx.strokeText('GAME OVER', 575, 220);
+            // gamectx.strokeText('CLICK TO PLAY AGAIN', 520, 260);
+            gamectx.strokeText(`Score/Distance: ${ball.distance} ft`, 450, 320);
+            gamectx.strokeText(ball.playTime, 450, 370);
+            gamectx.closePath();
             animating = false;
+            // gamecanvas.addEventListener('click', start);
         }
         
 

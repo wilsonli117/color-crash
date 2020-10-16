@@ -16,6 +16,8 @@ export class Ball {
         this.vy = Math.sin(this.angle) * (this.power/2);
         this.scrollSpeed = Math.floor(this.vx * 10);
         this.distance = 0;
+        this.playTime = 0;
+        this.time = undefined;
         this.drawBall = this.drawBall.bind(this);
         this.move = this.move.bind(this);
         this.boost = this.boost.bind(this);
@@ -39,14 +41,17 @@ export class Ball {
         let result;
     
         if (minutesElapsed >= 1) {
-            result = `Time Elapsed: 0${minutesElapsed}:${ secondsElapsed % 60 > 10 ? `${secondsElapsed % 60}` : `0${secondsElapsed % 60}` }`
+            result = `Time Elapsed: 0${minutesElapsed}:${secondsElapsed % 60 > 10 ? `${secondsElapsed % 60}` : `0${secondsElapsed % 60}`}`.slice(0, 22);
+            this.playTime = result;
         } else if (secondsElapsed > 1) {
-            result = `Time Elapsed: 00:${(secondsElapsed % 60) > 10 ? `${secondsElapsed}` : `0${secondsElapsed}`}`
+            result = `Time Elapsed: 00:${(secondsElapsed % 60) > 10 ? `${secondsElapsed}` : `0${secondsElapsed}`}`.slice(0, 22);
+            this.playTime = result;
         } else {
-            result = `Time Elapsed: 00:00:${secondsElapsed}`;
+            result = `Time Elapsed: 00:00:${secondsElapsed}`.slice(0, 22);;
+            this.playTime = result;
         }
         
-        return result.slice(0, 23);
+        return result
     }
 
     magnitude() {

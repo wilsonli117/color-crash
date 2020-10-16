@@ -52,17 +52,14 @@ export class Launcher {
     drawAngle() {
         // this.ctx.lineWidth = 10;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.strokeStyle = 'black';
         this.ctx.beginPath();
         this.ctx.moveTo(this.x, this.y);
         this.ctx.lineTo(this.x, this.y - 100);
         this.ctx.stroke();
-        this.ctx.strokeStyle = 'black';
         this.ctx.moveTo(this.x, this.y);
         this.ctx.lineTo(this.x + 100, this.y);
         this.ctx.stroke();
         // this.ctx.lineWidth = 5;
-        this.ctx.strokeStyle = 'red';
         this.ctx.moveTo(this.x, this.y);
         this.ctx.lineTo(this.x + (Math.cos(this.angle * (Math.PI / 180)) * 100), this.y + (Math.sin(this.angle * (Math.PI / 180)) * 100))
         this.ctx.stroke();

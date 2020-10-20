@@ -4,7 +4,7 @@ export class Launcher {
         this.ctx = canvas.getContext("2d");
         this.power = 0;
         this.dpower = 10;
-        this.x = 500;
+        this.x = 100;
         this.y = 550;
         this.angle = 271;
         this.angleDir = 1; //direction angle selector is swiveling

@@ -7,8 +7,13 @@
     <link rel="stylesheet" href="./dist/main.css" />
 </head>
 <body>
-        <canvas id="bgCanvas" width="1400" height="640" style="position: relative;"></canvas>
-        <canvas id="gameCanvas" width="1400" height="640" style="background: transparent; position: absolute; top: 8px; left: 8px; z-index: 3;"></canvas>
+    <h1 id="title">Color Crashers</h1>
+    <div id="canvas-container">
+        <canvas id="bgCanvas" width="1400" height="640" style="position: fixed;"></canvas>
+        <canvas id="gameCanvas" width="1400" height="640" style="background: transparent; position: absolute; z-index: 3;"></canvas>
+    </div>
+    <div id="about"></div>
+    <div id="instructions"></div>
     <script src="./dist/main.js"></script>
 </body>
 </html>

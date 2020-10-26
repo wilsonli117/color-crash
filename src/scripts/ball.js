@@ -73,7 +73,7 @@ export class Ball {
 
     offScreenHeight() {
         if (this.y < 0) {
-            return `Height: ${-Math.floor(this.y/2)} ft`
+            return `Height: ${-Math.floor(this.y/2) + 640} ft`
         } else {
             return ""
         }

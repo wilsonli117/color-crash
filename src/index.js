@@ -47,10 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (ball.scrollSpeed == 0) {
             // gamectx.clearRect(680, 305, 40, 30);
             gamectx.beginPath();
-            gamectx.rect(400, 170, 500, 300);
+            gamectx.rect((gamecanvas.width / 2) - 250, 170, 500, 300);
             gamectx.stroke();
             gamectx.font = "30px Arial bold";
-            gamectx.strokeText('GAME OVER', 575, 220);
+            gamectx.strokeText('GAME OVER', (gamecanvas.width / 2) - 90, 220);
             // gamectx.strokeText('CLICK TO PLAY AGAIN', 520, 260);
             gamectx.strokeText(`Score/Distance: ${ball.distance} ft`, 450, 320);
             gamectx.strokeText(ball.playTime, 450, 370);

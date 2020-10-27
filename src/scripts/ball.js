@@ -57,7 +57,6 @@ export class Ball {
     magnitude() {
         let result;
         if (this.vx < .2) {
-            debugger;
             return "0";
         }
         const vx = this.vx * 20; 
@@ -134,7 +133,7 @@ export class Ball {
     animate() {
         this.move();
         this.canvas.addEventListener('click', this.boost)
-        if (this.vx === 0) {
+        if (this.scrollSpeed == 0) {
             this.canvas.removeEventListener('click', this.boost)
         }
     }

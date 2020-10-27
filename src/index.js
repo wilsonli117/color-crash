@@ -15,13 +15,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // const ball = new Ball(gamecanvas, 20, 280);
     // const map = new Map(ball.scrollSpeed, bgcanvas, img) //initial scroll speed based on initial ball velocity
 
-    const launcher = new Launcher(gamecanvas);
+    let launcher;
     let ball;
     let map;
 
     const start = () => {
-        bgctx.clearRect(0, 0, gamecanvas.width, gamecanvas.height);
+        debugger;
         gamecanvas.removeEventListener("click", start);
+        bgctx.clearRect(0, 0, bgcanvas.width, bgcanvas.height);
+        gamectx.clearRect(0, 0, gamecanvas.width, gamecanvas.height);
+        launcher = new Launcher(gamecanvas);
         launcher.animate();
         gamecanvas.addEventListener("click", launch);
     }
@@ -56,13 +59,13 @@ document.addEventListener("DOMContentLoaded", () => {
             gamectx.strokeText(ball.playTime, 450, 370);
             gamectx.closePath();
             animating = false;
-            // gamecanvas.addEventListener('click', start);
+            gamecanvas.addEventListener("click", start);
         }
         
 
         if (animating) {
             requestAnimationFrame(animate);
-        }
+        } 
     }
 
     start();

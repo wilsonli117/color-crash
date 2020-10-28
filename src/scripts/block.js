@@ -1,4 +1,4 @@
-// const BLOCK_COLORS = ['orange']
+// const BLOCK_COLORS = ['red', 'violet']
 const BLOCK_COLORS = ['red', 'yellow', 'green', 'blue', 'orange', 'violet', 'purple']
 const blockWidth = 60;
 const blockHeight = 80;
@@ -11,14 +11,15 @@ export class Block {
         this.startX = xPos;
         this.x = xPos;
         this.color = BLOCK_COLORS[Math.floor(Math.random() * BLOCK_COLORS.length)];
-
-        // this.drawBlock = this.drawBlock.bind(this);
+        this.collided = false;
+        this.drawBlock = this.drawBlock.bind(this);
     }
 
     drawBlock(lastBlockX) {
         if(this.x <= 0 - blockWidth) {
             this.color = BLOCK_COLORS[Math.floor(Math.random() * BLOCK_COLORS.length)];
             this.x = lastBlockX + blockWidth + 500;
+            this.collided = false;
         }
     
         this.ctx.beginPath();

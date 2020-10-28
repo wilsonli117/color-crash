@@ -16,7 +16,7 @@ export class Ball {
         this.power = power;
         this.vx = Math.cos(this.angle) * (this.power/20);
         this.vy = Math.sin(this.angle) * (this.power/2);
-        this.scrollSpeed = Math.floor(this.vx * 10);
+        this.scrollSpeed = Math.floor(this.vx * 7);
         this.distance = 0;
         this.playTime = 0;
         this.time = undefined;
@@ -31,7 +31,7 @@ export class Ball {
         if (this.y > 0 && this.numBoosts > 0) {
             this.vy *= -1.25;
             this.vx *= 1.15;
-            this.scrollSpeed = Math.floor(this.vx * 10)
+            this.scrollSpeed = Math.floor(this.vx * 7)
             this.numBoosts -= 1;
         }
     }
@@ -107,7 +107,7 @@ export class Ball {
         if (this.y + ballRadius + this.vy >= this.canvas.height) {
             this.vy *= -bounce;
             this.vx *= friction;
-            this.scrollSpeed = Math.floor(this.vx * 10);
+            this.scrollSpeed = Math.floor(this.vx * 7);
         }
 
         //smooth stopping for insignificant vx values 
@@ -119,10 +119,10 @@ export class Ball {
             this.scrollSpeed = 0;
         }
 
-        if (this.vx < 4 && this.vx > 1) {
+        if (this.vx < 4 && this.vx >= 1) {
             this.x += this.vx/20; //control vx to prevent ball going off right-side viewport, use bg scroll as speed illusion
-        } else if (this.vx < 1 && this.vx > .1){
-            this.x += this.vx/5;
+        } else if (this.vx < 1 && this.vx >= .1){
+            this.x += this.vx/10;
         } else if (this.vx < .1 && this.vx > .01) {
             this.x += this.vx;
         } else {

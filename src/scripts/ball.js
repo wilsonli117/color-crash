@@ -29,8 +29,8 @@ export class Ball {
 
     boost() {
         if (this.y > 0 && this.numBoosts > 0) {
-            this.vy *= -1.15;
-            this.vx *= 1.1;
+            this.vy *= -1.25;
+            this.vx *= 1.15;
             this.scrollSpeed = Math.floor(this.vx * 10)
             this.numBoosts -= 1;
         }
@@ -111,7 +111,8 @@ export class Ball {
         }
 
         //smooth stopping for insignificant vx values 
-        if (this.vx < .2 && this.vy < .2 && this.vy > -.2) {
+        if (this.vx < .05 && this.vy < .2 && this.vy > -.2) {
+            debugger;
             this.vy = 0;
             this.vx -= .075;
             this.y = this.canvas.height - ballRadius - 2;

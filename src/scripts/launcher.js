@@ -82,13 +82,11 @@ export class Launcher {
         if (!this.launchAngle) {
             clearInterval(this.angleAnimation);
             this.launchAngle = this.angle;
-            console.log(-(this.angle - 360));
             // ball.angle = launchAngle * (Math.PI / 180)
             this.powerAnimation = setInterval(this.powerMove, 50);
         } else {
             clearInterval(this.powerAnimation);
             this.launchPower = this.power;
-            console.log(this.power);
             // ball.speed = launchPower;
             this.canvas.removeEventListener("click", this.handleClick);
 

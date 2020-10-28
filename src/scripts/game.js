@@ -58,54 +58,67 @@ export class Game {
 
         if (this.ball.y >= 550) {
             this.blocks.forEach(block => {
-                if (this.ball.x >= block.x + 20 && this.ball.x <= block.x + 60 && this.ball.y >= 560) {
+                if (this.ball.x >= block.x && this.ball.x <= (block.x + 80) && this.ball.y >= 560) {
                     switch(block.color) {
                         case 'green': 
                             if (!this.negateNextBlock) {
                                 this.ball.scrollSpeed = 0;
+                                this.ball.color = 'green'
+                                debugger;
+                            } else {
+                                this.ball.color = 'grey';
                             }
                             this.negateNextBlock = false;
-                            this.ball.color = 'green'
                             break;
                         case 'red':
                             if (!this.negateNextBlock) {
-                                this.ball.vx *= 1.1;
-                                this.ball.vy *= 1.15;
+                                this.ball.vx *= 1.05;
+                                this.ball.vy *= 1.25;
+                                this.ball.color = 'red';
+                            } else {
+                                this.ball.color = 'grey';
                             }
                             this.negateNextBlock = false;
-                            this.ball.color = 'red';
                             break;
                         case 'yellow':
                             if (!this.negateNextBlock) {
-                                this.ball.vx *= 1.05;
-                                this.ball.vy *= 1.25;
+                                this.ball.vx *= 1.1;
+                                this.ball.vy *= 1.2;
+                                this.ball.color = 'yellow';
+                            } else {
+                                this.ball.color = 'grey';
                             }
                             this.negateNextBlock = false;
-                            this.ball.color = 'yellow';
                             break;
                         case 'blue': 
                             if (!this.negateNextBlock) {
-                                this.ball.vx *= 1.075;
-                                this.ball.vy *= 1.2;
+                                this.ball.vx *= 1.15;
+                                this.ball.vy *= 1.15;
+                                this.ball.color = 'blue';
+                            } else {
+                                this.ball.color = 'grey';
                             }
                             this.negateNextBlock = false;
-                            this.ball.color = 'blue';
                             break;
                         case 'orange':
                             if (!this.negateNextBlock) {
-                                this.ball.vx *= .85;
+                                this.ball.vx *= .75;
                                 this.ball.vy *= 1.3;
+                                this.ball.color = 'orange';
+                            } else {
+                                this.ball.color = 'grey';
                             }
                             this.negateNextBlock = false;
-                            this.ball.color = 'orange';
                             break;
                         case 'purple':
                             if (!this.negateNextBlock) {
                                 this.ball.vx *= .8;
                                 this.ball.vy *= .8;
+                                this.ball.color = 'purple';
+                            } else {
+                                this.ball.color = 'grey';
                             }
                             this.negateNextBlock = false;
-                            this.ball.color = 'purple';
                             break;
                         case 'violet':
                             this.negateNextBlock = true;
@@ -115,12 +128,6 @@ export class Game {
                 }
             })
         }
-        // if (this.ball.x >= this.block.x + 20 && this.ball.x + 20 <= this.block.x + 60) {
-         
-        //     if (this.block.color == "green") {
-        //         this.ball.scrollSpeed = 0;
-        //     }
-        // }
 
         if (this.ball.scrollSpeed == 0) {
             // gamectx.clearRect(680, 305, 40, 30);

@@ -7,10 +7,12 @@ export class Ball {
     constructor(canvas, power, angle) {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
-        this.ctx.font = "20pt bold sans-serif";
+        this.ctx.font = "normal 25px bold Arial";
+        this.ctx.fontstyle = "normal";
         this.angle = angle * (Math.PI / 180); //need to convert to radians
         this.x = this.canvas.width * 0.05 //starting x coordinate of ball
         this.y = this.canvas.height - ballRadius; //starting y coordinate of ball
+        this.color = "grey";
         this.power = power;
         this.vx = Math.cos(this.angle) * (this.power/20);
         this.vy = Math.sin(this.angle) * (this.power/2);
@@ -88,7 +90,7 @@ export class Ball {
         this.ctx.arc(this.x, this.y, ballRadius, 0, Math.PI * 2, false);
         this.ctx.lineTo(this.x, this.y)
         this.ctx.stroke();
-        this.ctx.fillStyle = "blue";
+        this.ctx.fillStyle = this.color;
         this.ctx.fill();
         this.ctx.strokeText(`${this.offScreenHeight()}`, 350, 50);
         this.ctx.strokeText(`Distance: ${this.distance} ft`, 1100, 50);

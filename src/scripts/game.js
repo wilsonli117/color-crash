@@ -61,6 +61,7 @@ export class Game {
                 if (this.ball.x - block.x <= 50 && this.ball.x >= block.x && this.ball.x <= block.x + 80) {
                      if (block.color === 'green') {
                         if (!this.negateNextBlock && !block.collided) {
+                            debugger;
                              block.collided = true;
                              this.ball.vy = 0;
                              this.ball.vx = 0;
@@ -139,6 +140,7 @@ export class Game {
         }
 
         if (this.ball.scrollSpeed == 0) {
+            debugger;
             // gamectx.clearRect(680, 305, 40, 30);
             this.gamectx.beginPath();
             this.gamectx.rect((this.gamecanvas.width / 2) - 250, 170, 500, 300);

@@ -1,5 +1,5 @@
 // const BLOCK_COLORS = ['red', 'violet']
-const BLOCK_COLORS = ['red', 'yellow', 'green', 'blue', 'orange', 'violet', 'purple']
+const BLOCK_COLORS = ['red', 'yellow', 'green', 'blue', 'orange', 'pink', 'purple']
 const blockWidth = 60;
 const blockHeight = 80;
 

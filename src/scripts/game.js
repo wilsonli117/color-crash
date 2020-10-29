@@ -4,12 +4,13 @@ import { Launcher } from './launcher';
 import { Block } from './block';
 
 export class Game {
-    constructor(bgcanvas, gamecanvas, img) {
+    constructor(bgcanvas, gamecanvas, img, boostIcon) {
         this.bgcanvas = bgcanvas;
         this.bgctx = bgcanvas.getContext("2d");
         this.gamecanvas = gamecanvas;
         this.gamectx = gamecanvas.getContext("2d");
         this.bgImage = img;
+        this.boostIcon = boostIcon;
         this.launcher = undefined;
         this.ball = undefined;
         this.map = undefined;
@@ -35,7 +36,7 @@ export class Game {
     launch() {
         if (this.launcher.launchAngle && this.launcher.launchPower >= 0) {
             this.gamecanvas.removeEventListener("click", this.launch);
-            this.ball = new Ball(this.gamecanvas, this.launcher.launchPower, this.launcher.launchAngle);
+            this.ball = new Ball(this.gamecanvas, this.launcher.launchPower, this.launcher.launchAngle, this.boostIcon);
             this.map = new Map(this.ball.scrollSpeed, this.bgcanvas, this.bgImage); //initial scroll speed based on initial ball velocity
             this.blocks.push(new Block(this.ball.scrollSpeed, this.gamecanvas, 500));
             this.blocks.push(new Block(this.ball.scrollSpeed, this.gamecanvas, 1000));
@@ -61,7 +62,6 @@ export class Game {
                 if (this.ball.x - block.x <= 50 && this.ball.x >= block.x && this.ball.x <= block.x + 80) {
                      if (block.color === 'green') {
                         if (!this.negateNextBlock && !block.collided) {
-                            debugger;
                              block.collided = true;
                              this.ball.vy = 0;
                              this.ball.vx = 0;
@@ -140,7 +140,6 @@ export class Game {
         }
 
         if (this.ball.scrollSpeed == 0) {
-            debugger;
             // gamectx.clearRect(680, 305, 40, 30);
             this.gamectx.beginPath();
             this.gamectx.rect((this.gamecanvas.width / 2) - 250, 170, 500, 300);
@@ -149,7 +148,7 @@ export class Game {
             this.gamectx.strokeText('GAME OVER', (this.gamecanvas.width / 2), 220);
             this.gamectx.strokeText('CLICK TO PLAY AGAIN', (this.gamecanvas.width / 2), 260);
             this.gamectx.textAlign = "left"
-            this.gamectx.strokeText(`Score/Distance: ${this.ball.distance} ft`, 460, 330);
+            this.gamectx.strokeText(`Score/Distance: ${Math.floor(this.ball.distance)} ft`, 460, 330);
             this.gamectx.strokeText(this.ball.playTime, 460, 380);
             this.gamectx.closePath();
             this.animating = false;

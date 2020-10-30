@@ -38,9 +38,9 @@ export class Game {
             this.gamecanvas.removeEventListener("click", this.launch);
             this.ball = new Ball(this.gamecanvas, this.launcher.launchPower, this.launcher.launchAngle, this.boostIcon);
             this.map = new Map(this.ball.scrollSpeed, this.bgcanvas, this.bgImage); //initial scroll speed based on initial ball velocity
-            this.blocks.push(new Block(this.ball.scrollSpeed, this.gamecanvas, 500));
-            this.blocks.push(new Block(this.ball.scrollSpeed, this.gamecanvas, 1000));
-            this.blocks.push(new Block(this.ball.scrollSpeed, this.gamecanvas, 1500));
+            this.blocks[0] = new Block(this.ball.scrollSpeed, this.gamecanvas, 500);
+            this.blocks[1] = new Block(this.ball.scrollSpeed, this.gamecanvas, 1000);
+            this.blocks[2] = new Block(this.ball.scrollSpeed, this.gamecanvas, 1500);
             this.animating = true;
             this.animate();
         }
@@ -59,87 +59,81 @@ export class Game {
 
         if (this.ball.y >= 550) {
             this.blocks.forEach(block => {
-                if (this.ball.x - block.x <= 50 && this.ball.x >= block.x && this.ball.x <= block.x + 80) {
+                if (this.ball.x - block.x <= 50 && this.ball.x >= block.x + 20 && this.ball.x <= block.x + 80) {
                      if (block.color === 'green') {
+                         debugger;
                         if (!this.negateNextBlock && !block.collided) {
-                             block.collided = true;
                              this.ball.vy = 0;
                              this.ball.vx = 0;
                              this.ball.scrollSpeed = 0;
-                             this.ball.color = 'green'
                         } else if (this.negateNextBlock) {
                             this.ball.color = 'grey';
-                            block.collided = true;
-                            }
+                        }
                         this.negateNextBlock = false;
+                        block.collided = true;
                      } else if (block.color === 'red') {
                         if (!this.negateNextBlock && !block.collided) {
-                            block.collided = true;
                             this.ball.vx *= 1.05;
                             this.ball.vy *= 1.25;
                             this.ball.color = 'red';  
                         } else if (this.negateNextBlock) {
-                            this.ball.color = 'grey';
-                            block.collided = true;
+                            this.ball.color = 'grey'
                         }
                         this.negateNextBlock = false;
+                        block.collided = true;
                     } else if (block.color === 'yellow') {
                         if (!this.negateNextBlock && !block.collided) {
-                                block.collided = true;
-                                this.ball.vx *= 1.1;
-                                this.ball.vy *= 1.2;
-                                this.ball.color = 'yellow';
+                            this.ball.vx *= 1.1;
+                            this.ball.vy *= 1.2;
+                            this.ball.color = 'yellow';
                         } else if (this.negateNextBlock) {
                             this.ball.color = 'grey';
-                            block.collided = true;
                         }
                         this.negateNextBlock = false;
+                        block.collided = true;
                     } else if(block.color === 'blue') {
                         if (!this.negateNextBlock && !block.collided) {
-                                block.collided = true;
-                                this.ball.vx *= 1.15;
-                                this.ball.vy *= 1.15;
-                                this.ball.color = 'blue';
+                            this.ball.vx *= 1.15;
+                            this.ball.vy *= 1.15;
+                            this.ball.color = 'blue';
                         } else if (this.negateNextBlock) {
                             this.ball.color = 'grey';
-                            block.collided = true;
                         }
                         this.negateNextBlock = false;
+                        block.collided = true;
                     } else if (block.color === 'orange') {
                         if (!this.negateNextBlock && !block.collided) {
-                                block.collided = true;
-                                this.ball.vx *= .75;
-                                this.ball.vy *= 1.3;
-                                this.ball.color = 'orange';
+                            this.ball.vx *= .75;
+                            this.ball.vy *= 1.3;
+                            this.ball.color = 'orange';
                         } else if (this.negateNextBlock) { 
                             this.ball.color = 'grey';
-                            block.collided = true;
                         }
                         this.negateNextBlock = false;
+                        block.collided = true;
                     } else if (block.color === 'purple') {
                         if (!this.negateNextBlock && !block.collided) {
-                                block.collided = true;
-                                this.ball.vx *= .8;
-                                this.ball.vy *= .8;
-                                this.ball.color = 'purple';
+                            this.ball.vx *= .8;
+                            this.ball.vy *= .8;
+                            this.ball.color = 'purple';
                         } else if (this.negateNextBlock) { 
                             this.ball.color = 'grey';
-                            block.collided = true;
                         }
                         this.negateNextBlock = false;
+                        block.collided = true;
                     } else if (block.color === 'pink') {
-                         if (!block.collided) {
-                             block.collided = true;
-                             this.negateNextBlock = true;
-                             this.ball.color = 'pink'
-                           
-                         }
+                        if (!block.collided) {
+                            this.negateNextBlock = true;
+                            this.ball.color = 'pink'
+                        }
+                        block.collided = true;
                     }
                 }
             })
         }
 
         if (this.ball.scrollSpeed == 0) {
+            debugger;
             // gamectx.clearRect(680, 305, 40, 30);
             this.gamectx.beginPath();
             this.gamectx.rect((this.gamecanvas.width / 2) - 250, 170, 500, 300);

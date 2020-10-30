@@ -1,6 +1,6 @@
 const ballRadius = 20;
 const gravity = .1; //constant force that acts upon ball
-const bounce = 0.88; //20% energy loss when ball bounces or collides with object
+const bounce = 0.88; //12% energy loss when ball bounces or collides with object
 const friction = 0.95; //5% energy loss when ball travels along a surface / x axis
 
 export class Ball {

@@ -16,7 +16,7 @@ export class Block {
     }
 
     drawBlock(lastBlockX) {
-        if(this.x <= 0 - blockWidth) {
+        if(this.x <= -blockWidth) {
             this.color = BLOCK_COLORS[Math.floor(Math.random() * BLOCK_COLORS.length)];
             this.x = lastBlockX + blockWidth + 500;
             this.collided = false;

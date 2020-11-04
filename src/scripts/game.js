@@ -18,7 +18,7 @@ export class Game {
         this.animating = false;
         this.negateNextBlock = false;
         this.newRecord = false;
-        this.score = 0;
+        this.highScore = 0;
         this.bgMusic = document.getElementById('bgm')
 
         this.start = this.start.bind(this);
@@ -45,7 +45,7 @@ export class Game {
             this.blocks[0] = new Block(this.ball.scrollSpeed, this.gamecanvas, 500);
             this.blocks[1] = new Block(this.ball.scrollSpeed, this.gamecanvas, 1000);
             this.blocks[2] = new Block(this.ball.scrollSpeed, this.gamecanvas, 1500);
-            this.bgMusic.volume = .5;
+            this.bgMusic.volume = .3;
             this.bgMusic.play();
             this.animating = true;
             this.animate();
@@ -137,7 +137,8 @@ export class Game {
             })
         }
 
-        if (this.ball.distance > this.score)  {
+        if (this.ball.distance > this.highScore)  {
+            debugger;
             this.newRecord = true;
             this.ball.newRecord = true;
         }
@@ -165,7 +166,7 @@ export class Game {
             this.animating = false;
             this.gamecanvas.addEventListener("click", this.start);
 
-            this.score = Math.floor(this.ball.distance);
+            if (this.newRecord) this.highScore = Math.floor(this.ball.distance);
         }
 
 

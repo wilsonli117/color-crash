@@ -11,6 +11,16 @@ document.addEventListener("DOMContentLoaded", () => {
     boostIcon.src = "./src/boost.png"
 
     let game = new Game(bgcanvas, gamecanvas, img, boostIcon);
+    let bgMusic = document.getElementById('bgm');
+    let mute = document.getElementById('mute');
+
+    mute.addEventListener('click', () => {
+        if (bgMusic.paused) {
+            bgMusic.play();
+        } else {
+            bgMusic.pause();
+        }
+    })
     // img.addEventListener('load', game.draw);
 
     game.start();

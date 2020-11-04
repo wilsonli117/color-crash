@@ -25,7 +25,8 @@ export class Ball {
         this.boostIcon = boostIcon;
         this.numBoosts = 3;
         this.time = Date.now() // in ms
-        this.runTime = performance.now();
+        this.newRecord = false;
+        // this.runTime = performance.now();
     }
 
     boost() {
@@ -106,7 +107,14 @@ export class Ball {
             this.ctx.drawImage(this.boostIcon, 110, 25);
         }
         this.ctx.strokeText(`${this.offScreenHeight()}`, 350, 50);
-        this.ctx.strokeText(`Distance: ${Math.floor(this.distance)} ft`, 1100, 50);
+        if (this.newRecord) {
+            this.ctx.strokeStyle = "red"
+            this.ctx.strokeText('NEW RECORD', 925, 50);
+            this.ctx.strokeText(`Distance: ${Math.floor(this.distance)} ft`, 1100, 50);
+            this.ctx.strokeStyle = "black"
+        } else {
+            this.ctx.strokeText(`Distance: ${Math.floor(this.distance)} ft`, 1100, 50);
+        }
         this.ctx.strokeText(`${this.timeElapsed()}`, 1100, 100);
         this.ctx.strokeText(`Velocity: ${this.magnitude()} ft/s`, 1100, 150);
         this.ctx.closePath();

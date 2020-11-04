@@ -17,6 +17,9 @@ export class Game {
         this.blocks = [];
         this.animating = false;
         this.negateNextBlock = false;
+        this.newRecord = false;
+        this.score = 0;
+        this.bgMusic = document.getElementById('bgm')
 
         this.start = this.start.bind(this);
         this.launch = this.launch.bind(this);
@@ -28,6 +31,7 @@ export class Game {
         this.gamecanvas.removeEventListener("click", this.start);
         this.bgctx.clearRect(0, 0, this.bgcanvas.width, this.bgcanvas.height);
         this.gamectx.clearRect(0, 0, this.gamecanvas.width, this.gamecanvas.height);
+        this.newRecord = false;
         this.launcher = new Launcher(this.gamecanvas);
         this.launcher.animate();
         this.gamecanvas.addEventListener("click", this.launch);
@@ -41,6 +45,8 @@ export class Game {
             this.blocks[0] = new Block(this.ball.scrollSpeed, this.gamecanvas, 500);
             this.blocks[1] = new Block(this.ball.scrollSpeed, this.gamecanvas, 1000);
             this.blocks[2] = new Block(this.ball.scrollSpeed, this.gamecanvas, 1500);
+            this.bgMusic.volume = .5;
+            this.bgMusic.play();
             this.animating = true;
             this.animate();
         }
@@ -131,8 +137,15 @@ export class Game {
             })
         }
 
+        if (this.ball.distance > this.score)  {
+            this.newRecord = true;
+            this.ball.newRecord = true;
+        }
+
         if (this.ball.scrollSpeed == 0) {
             // gamectx.clearRect(680, 305, 40, 30);
+            this.bgMusic.pause();
+            this.bgMusic.currentTime = 0; //resets position of audio playback
             this.gamectx.beginPath();
             this.gamectx.rect((this.gamecanvas.width / 2) - 250, 170, 500, 300);
             this.gamectx.stroke();
@@ -140,12 +153,22 @@ export class Game {
             this.gamectx.strokeText('GAME OVER', (this.gamecanvas.width / 2), 220);
             this.gamectx.strokeText('CLICK TO PLAY AGAIN', (this.gamecanvas.width / 2), 260);
             this.gamectx.textAlign = "left"
-            this.gamectx.strokeText(`Score/Distance: ${Math.floor(this.ball.distance)} ft`, 460, 330);
+            if (this.newRecord) {
+                this.gamectx.strokeStyle = "red"
+                this.gamectx.strokeText(`Score/Distance: ${Math.floor(this.ball.distance)} ft  NEW RECORD`, 460, 330);
+                this.gamectx.strokeStyle = "black"
+            } else {
+                this.gamectx.strokeText(`Score/Distance: ${Math.floor(this.ball.distance)} ft`, 460, 330);
+            }
             this.gamectx.strokeText(this.ball.playTime, 460, 380);
             this.gamectx.closePath();
             this.animating = false;
             this.gamecanvas.addEventListener("click", this.start);
+
+            this.score = Math.floor(this.ball.distance);
         }
+
+
 
 
         if (this.animating) {

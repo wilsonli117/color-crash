@@ -15,10 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let mute = document.getElementById('mute');
 
     mute.addEventListener('click', () => {
-        if (bgMusic.paused) {
-            bgMusic.play();
+        if (bgMusic.muted) {
+            bgMusic.muted = false;
         } else {
-            bgMusic.pause();
+            bgMusic.muted = true;
+
         }
     })
     // img.addEventListener('load', game.draw);

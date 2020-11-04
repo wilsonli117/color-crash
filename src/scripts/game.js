@@ -45,7 +45,7 @@ export class Game {
             this.blocks[0] = new Block(this.ball.scrollSpeed, this.gamecanvas, 500);
             this.blocks[1] = new Block(this.ball.scrollSpeed, this.gamecanvas, 1000);
             this.blocks[2] = new Block(this.ball.scrollSpeed, this.gamecanvas, 1500);
-            this.bgMusic.volume = .3;
+            this.bgMusic.volume = .2;
             this.bgMusic.play();
             this.animating = true;
             this.animate();
@@ -108,8 +108,8 @@ export class Game {
                         block.collided = true;
                     } else if (block.color === 'orange') {
                         if (!this.negateNextBlock && !block.collided) {
-                            this.ball.vx *= .75;
-                            this.ball.vy *= 1.3;
+                            this.ball.vx *= .85;
+                            this.ball.vy *= 1.35;
                             this.ball.color = 'orange';
                         } else if (this.negateNextBlock) { 
                             this.ball.color = 'grey';

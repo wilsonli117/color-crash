@@ -26,11 +26,16 @@ export class Ball {
         this.numBoosts = 3;
         this.time = Date.now() // in ms
         this.newRecord = false;
+        this.bounceSF = document.getElementById('bounceSF');
+        this.bounceSF.volume = .2;
+        this.boostSF = document.getElementById('boostSF');
+        this.boostSF.volume = .2;
         // this.runTime = performance.now();
     }
 
     boost() {
-        if (this.y > 0 && this.numBoosts > 0) {
+        if (this.y > 0 && this.numBoosts > 0 && this.scrollSpeed > 0) {
+            this.boostSF.play();
             this.vy *= -1.25;
             this.vx *= 1.15;
             this.scrollSpeed = Math.floor(this.vx * 7)
@@ -129,6 +134,9 @@ export class Ball {
             this.vy *= -bounce;
             this.vx *= friction;
             this.scrollSpeed = Math.floor(this.vx * 7);
+            if (Math.abs(this.vy) > 1) {
+                this.bounceSF.play();
+            }
         }
 
         //smooth stopping for insignificant vx values 
@@ -137,6 +145,8 @@ export class Ball {
             this.vx -= .075;
             this.y = this.canvas.height - ballRadius - 2;
             this.scrollSpeed = 0;
+            this.numBoosts = 0;
+            this.canvas.removeEventListener('click', this.boost)
         }
 
         if (this.vx < 4 && this.vx >= 1) {
@@ -157,9 +167,7 @@ export class Ball {
         this.move();
         
         this.canvas.addEventListener('click', this.boost)
-        if (this.scrollSpeed == 0) {
-            this.canvas.removeEventListener('click', this.boost)
-        }
+
     }
 }
 

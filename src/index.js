@@ -17,9 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
     mute.addEventListener('click', () => {
         if (bgMusic.muted) {
             bgMusic.muted = false;
+            mute.textContent = 'Mute Music'
         } else {
             bgMusic.muted = true;
-
+            mute.textContent = 'Unmute Music'
         }
     })
     // img.addEventListener('load', game.draw);

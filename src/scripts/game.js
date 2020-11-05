@@ -19,7 +19,15 @@ export class Game {
         this.negateNextBlock = false;
         this.newRecord = false;
         this.highScore = 0;
-        this.bgMusic = document.getElementById('bgm')
+        this.bgMusic = document.getElementById('bgm');
+        this.greenBlock = document.getElementById('green');
+        this.greenBlock.volume = .2;
+        this.blockBoostSF = document.getElementById('blockBoostSF');
+        this.blockBoostSF.volume = .5;
+        this.slowSF = document.getElementById('slowSF');
+        this.slowSF.volume = .5;
+        this.negateSF = document.getElementById('negateSF');
+        this.negateSF.volume = .5;
 
         this.start = this.start.bind(this);
         this.launch = this.launch.bind(this);
@@ -71,63 +79,89 @@ export class Game {
                              this.ball.vy = 0;
                              this.ball.vx = 0;
                              this.ball.scrollSpeed = 0;
+                             this.ball.numBoosts = 0;
+                             this.greenBlock.play();
                         } else if (this.negateNextBlock) {
                             this.ball.color = 'grey';
+                            this.negateSF.currentTime = 0;
+                            this.negateSF.play();
                         }
                         this.negateNextBlock = false;
                         block.collided = true;
                      } else if (block.color === 'red') {
                         if (!this.negateNextBlock && !block.collided) {
+                            this.blockBoostSF.currentTime = 0;
+                            this.blockBoostSF.play();
                             this.ball.vx *= 1.05;
                             this.ball.vy *= 1.25;
                             this.ball.color = 'red';  
                         } else if (this.negateNextBlock) {
                             this.ball.color = 'grey'
+                            this.negateSF.currentTime = 0;
+                            this.negateSF.play();
                         }
                         this.negateNextBlock = false;
                         block.collided = true;
                     } else if (block.color === 'yellow') {
                         if (!this.negateNextBlock && !block.collided) {
+                            this.blockBoostSF.currentTime = 0;
+                            this.blockBoostSF.play();
                             this.ball.vx *= 1.1;
                             this.ball.vy *= 1.2;
                             this.ball.color = 'yellow';
                         } else if (this.negateNextBlock) {
                             this.ball.color = 'grey';
+                            this.negateSF.currentTime = 0;
+                            this.negateSF.play();
                         }
                         this.negateNextBlock = false;
                         block.collided = true;
                     } else if(block.color === 'blue') {
                         if (!this.negateNextBlock && !block.collided) {
+                            this.blockBoostSF.currentTime = 0;
+                            this.blockBoostSF.play();
                             this.ball.vx *= 1.15;
                             this.ball.vy *= 1.15;
                             this.ball.color = 'blue';
                         } else if (this.negateNextBlock) {
                             this.ball.color = 'grey';
+                            this.negateSF.currentTime = 0;
+                            this.negateSF.play();
                         }
                         this.negateNextBlock = false;
                         block.collided = true;
                     } else if (block.color === 'orange') {
                         if (!this.negateNextBlock && !block.collided) {
-                            this.ball.vx *= .85;
+                            this.blockBoostSF.currentTime = 0;
+                            this.blockBoostSF.play();
+                            this.ball.vx *= .95;
                             this.ball.vy *= 1.35;
                             this.ball.color = 'orange';
                         } else if (this.negateNextBlock) { 
                             this.ball.color = 'grey';
+                            this.negateSF.currentTime = 0;
+                            this.negateSF.play();
                         }
                         this.negateNextBlock = false;
                         block.collided = true;
                     } else if (block.color === 'purple') {
                         if (!this.negateNextBlock && !block.collided) {
+                            this.slowSF.currentTime = 0;
+                            this.slowSF.play();
                             this.ball.vx *= .8;
                             this.ball.vy *= .8;
                             this.ball.color = 'purple';
                         } else if (this.negateNextBlock) { 
                             this.ball.color = 'grey';
+                            this.negateSF.currentTime = 0;
+                            this.negateSF.play();
                         }
                         this.negateNextBlock = false;
                         block.collided = true;
                     } else if (block.color === 'pink') {
                         if (!block.collided) {
+                            this.negateSF.currentTime = 0;
+                            this.negateSF.play();
                             this.negateNextBlock = true;
                             this.ball.color = 'pink'
                         }
@@ -138,7 +172,6 @@ export class Game {
         }
 
         if (this.ball.distance > this.highScore)  {
-            debugger;
             this.newRecord = true;
             this.ball.newRecord = true;
         }

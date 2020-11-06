@@ -72,6 +72,10 @@ module.exports = {
                     "sass-loader",
                     "postcss-loader"
                 ]
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                loader: "file-loader"
             }
         ]
     },

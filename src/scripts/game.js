@@ -3,6 +3,8 @@ import { Ball } from './ball';
 import { Launcher } from './launcher';
 import { Block } from './block';
 
+const COLORS = ['red', 'yellow', 'green', 'blue', 'orange', 'pink', 'purple']
+
 export class Game {
     constructor(bgcanvas, gamecanvas, img, boostIcon) {
         this.bgcanvas = bgcanvas;
@@ -29,10 +31,12 @@ export class Game {
         this.negateSF = document.getElementById('negateSF');
         this.negateSF.volume = .3;
 
+        this.titleLetters = document.getElementsByClassName('title-letter');
+
         this.start = this.start.bind(this);
         this.launch = this.launch.bind(this);
-
         this.animate = this.animate.bind(this);
+        this.titleColor = this.titleColor.bind(this);
     }
 
     start() {
@@ -64,6 +68,17 @@ export class Game {
         }
     }
 
+    titleColor() {
+        for(let i = 0; i < this.titleLetters.length; i++) {
+            debugger;
+            if (!this.titleLetters[i].style.backgroundColor) {
+                this.titleLetters[i].style.backgroundColor = COLORS[Math.floor(Math.random() * (this.titleLetters.length - 1))]
+            } else {
+                this.titleLetters[i].style.backgroundColor = this.ball.color
+            }
+        }
+    }
+
     animate() {
         this.map.animate();
         this.ball.animate();
@@ -71,6 +86,7 @@ export class Game {
         this.blocks[1].drawBlock(this.blocks[0].x);
         this.blocks[2].drawBlock(this.blocks[1].x);
 
+       this.titleColor();
 
         this.map.scrollSpeed = this.ball.scrollSpeed; //will update every frame
         this.blocks.forEach(block => block.scrollSpeed = this.ball.scrollSpeed);

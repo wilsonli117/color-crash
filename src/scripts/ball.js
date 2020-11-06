@@ -146,14 +146,13 @@ export class Ball {
             this.y = this.canvas.height - ballRadius - 2;
             this.scrollSpeed = 0;
             this.numBoosts = 0;
-            this.canvas.removeEventListener('click', this.boost)
         }
 
-        if (this.vx < 4 && this.vx >= 1) {
+        if (this.vx < 4 && this.vx >= 1 && this.y < 1200) {
             this.x += this.vx/20; //control vx to prevent ball going off right-side viewport, use bg scroll as speed illusion
-        } else if (this.vx < 1 && this.vx >= .1){
+        } else if (this.vx < 1 && this.vx >= .1 && this.y < 1200){
             this.x += this.vx/10;
-        } else if (this.vx < .1 && this.vx > .01) {
+        } else if (this.vx < .1 && this.vx > .01 && this.y < 1200) {
             this.x += this.vx;
         } else {
             this.x += this.vx/40;
@@ -165,9 +164,6 @@ export class Ball {
 
     animate() {
         this.move();
-        
-        this.canvas.addEventListener('click', this.boost)
-
     }
 }
 

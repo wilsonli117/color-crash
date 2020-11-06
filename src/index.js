@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const gamecanvas = document.getElementById("gameCanvas");
     
     let img = new Image();
-    img.src = "./src/background.png"
+    img.src = "./src/images/background.png"
     let boostIcon = new Image();
-    boostIcon.src = "./src/boost.png"
+    boostIcon.src = "./src/images/boost.png"
 
     let game = new Game(bgcanvas, gamecanvas, img, boostIcon);
     let bgMusic = document.getElementById('bgm');
@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
             mute.textContent = 'Unmute Music'
         }
     })
-    // img.addEventListener('load', game.draw);
 
-    game.start();
+    img.addEventListener('load', game.start);
 
+    // game.start();
     
     
 })

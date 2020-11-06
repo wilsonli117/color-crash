@@ -20,25 +20,27 @@ export class Game {
         this.newRecord = false;
         this.highScore = 0;
         this.bgMusic = document.getElementById('bgm');
-        this.greenBlock = document.getElementById('green');
-        this.greenBlock.volume = .2;
+        this.greenBlockSF = document.getElementById('greenSF');
+        this.greenBlockSF.volume = .2;
         this.blockBoostSF = document.getElementById('blockBoostSF');
         this.blockBoostSF.volume = .5;
         this.slowSF = document.getElementById('slowSF');
         this.slowSF.volume = .5;
         this.negateSF = document.getElementById('negateSF');
-        this.negateSF.volume = .5;
+        this.negateSF.volume = .3;
 
         this.start = this.start.bind(this);
         this.launch = this.launch.bind(this);
+
         this.animate = this.animate.bind(this);
     }
 
     start() {
         this.gamectx.font = "normal 10px bold Arial";
         this.gamecanvas.removeEventListener("click", this.start);
-        this.bgctx.clearRect(0, 0, this.bgcanvas.width, this.bgcanvas.height);
+        // this.bgctx.clearRect(0, 0, this.bgcanvas.width, this.bgcanvas.height);
         this.gamectx.clearRect(0, 0, this.gamecanvas.width, this.gamecanvas.height);
+        this.bgctx.drawImage(this.bgImage, 0, 0, this.bgcanvas.width, this.bgcanvas.height);
         this.newRecord = false;
         this.launcher = new Launcher(this.gamecanvas);
         this.launcher.animate();
@@ -48,14 +50,16 @@ export class Game {
     launch() {
         if (this.launcher.launchAngle && this.launcher.launchPower >= 0) {
             this.gamecanvas.removeEventListener("click", this.launch);
+            this.bgctx.clearRect(0, 0, this.bgcanvas.width, this.bgcanvas.height);
             this.ball = new Ball(this.gamecanvas, this.launcher.launchPower, this.launcher.launchAngle, this.boostIcon);
             this.map = new Map(this.ball.scrollSpeed, this.bgcanvas, this.bgImage); //initial scroll speed based on initial ball velocity
             this.blocks[0] = new Block(this.ball.scrollSpeed, this.gamecanvas, 500);
             this.blocks[1] = new Block(this.ball.scrollSpeed, this.gamecanvas, 1000);
             this.blocks[2] = new Block(this.ball.scrollSpeed, this.gamecanvas, 1500);
-            this.bgMusic.volume = .2;
+            this.bgMusic.volume = .1;
             this.bgMusic.play();
             this.animating = true;
+            this.gamecanvas.addEventListener('click', this.ball.boost)
             this.animate();
         }
     }
@@ -80,7 +84,7 @@ export class Game {
                              this.ball.vx = 0;
                              this.ball.scrollSpeed = 0;
                              this.ball.numBoosts = 0;
-                             this.greenBlock.play();
+                             this.greenBlockSF.play();
                         } else if (this.negateNextBlock) {
                             this.ball.color = 'grey';
                             this.negateSF.currentTime = 0;
@@ -178,6 +182,8 @@ export class Game {
 
         if (this.ball.scrollSpeed == 0) {
             // gamectx.clearRect(680, 305, 40, 30);
+            this.animating = false;
+            this.gamecanvas.removeEventListener('click', this.boost)
             this.bgMusic.pause();
             this.bgMusic.currentTime = 0; //resets position of audio playback
             this.gamectx.beginPath();
@@ -196,7 +202,6 @@ export class Game {
             }
             this.gamectx.strokeText(this.ball.playTime, 460, 380);
             this.gamectx.closePath();
-            this.animating = false;
             this.gamecanvas.addEventListener("click", this.start);
 
             if (this.newRecord) this.highScore = Math.floor(this.ball.distance);
@@ -209,4 +214,5 @@ export class Game {
             requestAnimationFrame(this.animate);
         } 
     }
+
 }

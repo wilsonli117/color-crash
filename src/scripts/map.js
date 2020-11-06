@@ -23,7 +23,7 @@ export class Map {
     }
     
     animate() {
-        return this.drawBackground();
+       this.drawBackground();
     }
 }
 

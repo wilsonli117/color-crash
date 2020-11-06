@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Color Crash</title>
     <link rel="stylesheet" href="./dist/main.css" />
 </head>
 <body>
-    <h1 id="title">Color Crashers</h1>
+    <h1 id="title">Color Crash</h1>
     <div id="canvas-container">
         <canvas id="bgCanvas" width="1400" height="640" style="position: fixed;"></canvas>
         <canvas id="gameCanvas" width="1400" height="640" style="background: transparent; position: absolute; z-index: 3;"></canvas>
@@ -15,29 +15,34 @@
     <div id="about">
         <p>About</p>
     </div>
-    <div id="instructions"></div>
+    <div id="instructions">
+        <p></p>
+        <div id="legend">
+
+        </div>
+    </div>
     <button id="mute">Mute Music</button>
     <script src="./dist/main.js"></script>
     <audio id="bgm">
-        <source src="./src/crashBGM.mp3" type="audio/mpeg">
+        <source src="./src/sounds/crashBGM.mp3" type="audio/mpeg">
     </audio>
     <audio id="bounceSF">
-        <source src="./src/bouncesf.mp3" type="audio/mpeg">
+        <source src="./src/sounds/bouncesf.mp3" type="audio/mpeg">
     </audio>
     <audio id="slowSF">
-        <source src="./src/slow.mp3" type="audio/mpeg">
+        <source src="./src/sounds/slow.mp3" type="audio/mpeg">
     </audio>
     <audio id="blockBoostSF">
-        <source src="./src/blockboostSF.mp3" type="audio/mpeg">
+        <source src="./src/sounds/blockboostSF.mp3" type="audio/mpeg">
     </audio>
     <audio id="boostSF">
-        <source src="./src/boost.mp3" type="audio/mpeg">
+        <source src="./src/sounds/boost.mp3" type="audio/mpeg">
     </audio>
-    <audio id="green">
-        <source src="./src/greensf.mp3" type="audio/mpeg">
+    <audio id="greenSF">
+        <source src="./src/sounds/greensf.mp3" type="audio/mpeg">
     </audio>
     <audio id="negateSF">
-        <source src="./src/negateSF.mp3" type="audio/mpeg">
+        <source src="./src/sounds/negateSF.mp3" type="audio/mpeg">
     </audio>
 
 </body>

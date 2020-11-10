@@ -70,11 +70,11 @@ export class Game {
 
     titleColor() {
         for(let i = 0; i < this.titleLetters.length; i++) {
-            debugger;
-            if (!this.titleLetters[i].style.backgroundColor) {
-                this.titleLetters[i].style.backgroundColor = COLORS[Math.floor(Math.random() * (this.titleLetters.length - 1))]
+            this.titleLetters[i].style.backgroundColor = this.ball.color
+            if (this.ball.color === 'yellow') {
+                this.titleLetters[i].style.color = 'grey'
             } else {
-                this.titleLetters[i].style.backgroundColor = this.ball.color
+                this.titleLetters[i].style.color = 'white'
             }
         }
     }

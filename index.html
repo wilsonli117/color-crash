@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Color Crash</title>
     <link rel="stylesheet" href="./dist/main.css" />
+    <script src="https://kit.fontawesome.com/41454d6525.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="title">
@@ -25,19 +26,56 @@
 
     </div>
     <div id="canvas-container">
-        <canvas id="bgCanvas" width="1400" height="640" style="position: fixed;"></canvas>
+        <canvas id="bgCanvas" width="1400" height="640" style="position: relative;"></canvas>
         <canvas id="gameCanvas" width="1400" height="640" style="background: transparent; position: absolute; z-index: 3;"></canvas>
-    </div>
-    <div id="about">
-        <p>About</p>
-    </div>
-    <div id="instructions">
-        <p></p>
-        <div id="legend">
-
+        
+        <div id="about">
+            <div id="contact">
+                <button id="mute">Mute Music</button>
+                <a href="https://github.com/ligokdoon"><i class="fab fa-github-square fa-2x"></i></a>
+                <a href="https://www.linkedin.com/in/wilsonli117/"><i class="fab fa-linkedin fa-2x"></i></a>
+                <a href="https://angel.co/u/wilson-li-13"><i class="fab fa-angellist fa-2x"></i></a>
+            </div>
+            <div id="about-split">
+                <div id="instructions">
+                    <p>Instructions</p>
+                    <p>Welcome to Color Crash! Your goal is to get the world's bounciest ball as far across the city as possible. Be careful, there are obstacles in your path.</p>
+                    <p>Click to reverse the direction and increase the velocity of the ball if it is on-screen. You have 3 boosts.</p>
+                </div>
+                <div id="legend">
+                    <p>Color Legend</p>
+                    <div id="legend-red">
+                        <div></div>
+                        <p>Horizontal Velocity +5%  Vertical Velocity +25%</p>
+                    </div> 
+                    <div id="legend-yellow">
+                        <div></div>
+                        <p>Horizontal Velocity +10% Vertical Velocity +20%</p>
+                    </div>
+                    <div id="legend-green">
+                        <div></div>
+                        <p> Game Over</p>
+                    </div>
+                    <div id="legend-blue">
+                        <div></div>
+                        <p>Horizontal Velocity +15% Vertical Velocity +15%</p>
+                    </div>
+                    <div id="legend-orange">
+                        <div></div>
+                        <p>Horizontal Velocity -5%  Vertical Velocity +35%</p>
+                    </div>
+                    <div id="legend-pink">
+                        <div></div>
+                        <p>Next block is negated</p>
+                    </div>
+                    <div id="legend-purple">
+                        <div></div>
+                        <p>Horizontal Velocity -20% Vertical Velocity -20%</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <button id="mute">Mute Music</button>
     <script src="./dist/main.js"></script>
     <audio id="bgm">
         <source src="./src/sounds/crashBGM.mp3" type="audio/mpeg">

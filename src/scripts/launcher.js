@@ -2,10 +2,11 @@ export class Launcher {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
+        this.ctx.font = "20px sans-serif";
         this.power = 0;
         this.dpower = 10;
-        this.x = 100;
-        this.y = 550;
+        this.x = 250;
+        this.y = 450;
         this.angle = 271;
         this.angleDir = 1; //direction angle selector is swiveling
         this.angleAnimation = undefined;
@@ -21,8 +22,10 @@ export class Launcher {
     drawPower() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.beginPath();
+        this.ctx.strokeStyle = "red"
+        this.ctx.strokeText('Click to select launch power', 400, 350)
+        this.ctx.strokeStyle = "black"
         this.ctx.moveTo(this.x, this.y);
-        this.ctx.strokeStyle = 'black';
         this.ctx.moveTo(this.x, this.y);
         this.ctx.lineTo(this.x, this.y - this.power);
         this.ctx.stroke();
@@ -53,6 +56,9 @@ export class Launcher {
         // this.ctx.lineWidth = 10;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.beginPath();
+        this.ctx.strokeStyle = "red"
+        this.ctx.strokeText('Click to select launch angle', 400, 350)
+        this.ctx.strokeStyle = "black"
         this.ctx.moveTo(this.x, this.y);
         this.ctx.lineTo(this.x, this.y - 100);
         this.ctx.stroke();

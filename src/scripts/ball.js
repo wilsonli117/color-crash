@@ -1,14 +1,15 @@
 const ballRadius = 20;
 const gravity = .1; //constant force that acts upon ball
 const bounce = 0.88; //12% energy loss when ball bounces or collides with object
-const friction = 0.95; //5% energy loss when ball travels along a surface / x axis
+const friction = 0.90; //10% energy loss when ball travels along a surface / x axis
 
 export class Ball {
     constructor(canvas, power, angle, boostIcon) {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
-        this.ctx.font = "normal 25px bold Arial";
-        this.ctx.fontstyle = "normal";
+        this.ctx.font = "bold 25px Fredoka One";
+        // this.ctx.fontstyle = "normal";
+        this.ctx.strokeStyle = "black"
         this.angle = angle * (Math.PI / 180); //need to convert to radians
         this.x = this.canvas.width * 0.05 //starting x coordinate of ball
         this.y = this.canvas.height - ballRadius; //starting y coordinate of ball
@@ -102,14 +103,14 @@ export class Ball {
         this.ctx.fill();
         this.ctx.strokeText('Boosts:', 20, 50);
         if (this.numBoosts === 3) {
-            this.ctx.drawImage(this.boostIcon, 110, 25);
-            this.ctx.drawImage(this.boostIcon, 160, 25);
-            this.ctx.drawImage(this.boostIcon, 210, 25);
+            this.ctx.drawImage(this.boostIcon, 120, 25);
+            this.ctx.drawImage(this.boostIcon, 170, 25);
+            this.ctx.drawImage(this.boostIcon, 220, 25);
         } else if (this.numBoosts === 2) {
-            this.ctx.drawImage(this.boostIcon, 110, 25);
-            this.ctx.drawImage(this.boostIcon, 160, 25);
+            this.ctx.drawImage(this.boostIcon, 120, 25);
+            this.ctx.drawImage(this.boostIcon, 170, 25);
         } else if (this.numBoosts === 1) {
-            this.ctx.drawImage(this.boostIcon, 110, 25);
+            this.ctx.drawImage(this.boostIcon, 120, 25);
         }
         this.ctx.strokeText(`${this.offScreenHeight()}`, 350, 50);
         if (this.newRecord) {
@@ -155,7 +156,7 @@ export class Ball {
         } else if (this.vx < .1 && this.vx > .01 && this.y < 1200) {
             this.x += this.vx;
         } else {
-            this.x += this.vx/40;
+            this.x += this.vx/60;
         }
         this.y += this.vy;
         this.drawBall();

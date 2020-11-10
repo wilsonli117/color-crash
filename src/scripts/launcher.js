@@ -2,7 +2,7 @@ export class Launcher {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
-        this.ctx.font = "20px sans-serif";
+        this.ctx.font = "bold 20px Fredoka One";
         this.power = 0;
         this.dpower = 10;
         this.x = 250;

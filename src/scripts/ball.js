@@ -7,16 +7,15 @@ export class Ball {
     constructor(canvas, power, angle, boostIcon) {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
-        this.ctx.font = "bold 25px Fredoka One";
-        // this.ctx.fontstyle = "normal";
-        this.ctx.strokeStyle = "black"
+        this.power = power;
         this.angle = angle * (Math.PI / 180); //need to convert to radians
+        this.vx = Math.cos(this.angle) * (this.power / 20);
+        this.vy = Math.sin(this.angle) * (this.power / 2);
         this.x = this.canvas.width * 0.05 //starting x coordinate of ball
         this.y = this.canvas.height - ballRadius; //starting y coordinate of ball
+        this.ctx.font = "bold 25px Fredoka One";
+        this.ctx.strokeStyle = "black"
         this.color = "grey";
-        this.power = power;
-        this.vx = Math.cos(this.angle) * (this.power/20);
-        this.vy = Math.sin(this.angle) * (this.power/2);
         this.scrollSpeed = Math.floor(this.vx * 7);
         this.distance = 0;
         this.playTime = 0;
@@ -127,15 +126,14 @@ export class Ball {
     }
 
     move() {
-        // this.drawBall();
         this.vy += gravity;
         this.distanceTraveled();
-        //bounce 
+   
         if (this.y + ballRadius + this.vy >= this.canvas.height) {
             this.vy *= -bounce;
             this.vx *= friction;
             this.scrollSpeed = Math.floor(this.vx * 7);
-            if (Math.abs(this.vy) > 1) {
+            if (Math.abs(this.vy) > 2) {
                 this.bounceSF.play();
             }
         }
@@ -158,9 +156,9 @@ export class Ball {
         } else {
             this.x += this.vx/60;
         }
+        
         this.y += this.vy;
         this.drawBall();
-        // requestAnimationFrame(this.move); //will return an animation ID 
     }
 
     animate() {

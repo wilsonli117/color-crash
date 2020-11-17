@@ -88,7 +88,7 @@ export class Launcher {
         if (!this.launchAngle) {
             clearInterval(this.angleAnimation);
             this.launchAngle = this.angle;
-            // ball.angle = launchAngle * (Math.PI / 180)
+           
             this.powerAnimation = setInterval(this.powerMove, 50);
         } else {
             clearInterval(this.powerAnimation);

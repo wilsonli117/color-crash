@@ -125,6 +125,7 @@ Attributions for resources used in this project
 
 ### Images
 * [UI Background](https://www.wallpapertip.com/wpic/oJiomw_light-colorful-background-hd/)
+* [Trigonometry Visualization](https://www.geogebra.org/m/rAd2yZMK)
 
 ### Icons
 * https://fontawesome.com/

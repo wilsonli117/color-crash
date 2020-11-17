@@ -4,7 +4,7 @@
 
 Color Crash is a side scrolling browser game where the player initially launches a ball with an angle and a power percentage. The player's score is determined by the distance the ball travels. After the initial launch, the ball will have it's velocity and height altered each time it hits the ground or a block. The playing map is always populated with 3 colored blocks (out of 7 distinct colors) that will affect the ball's velocity differently. The round is over when the ball no longer has velocity or makes contact with a green block. 
 
-![Color Crash Demo GIF](https://color-crash.s3.amazonaws.com/color_crash_gif.gif)
+<img src="./src/images/color_crash_gif.gif" />
 
 ## Features
 
@@ -48,9 +48,9 @@ this.vx = Math.cos(this.angle) * (this.power / 20);
 this.vy = Math.sin(this.angle) * (this.power / 2);
 
 ```
-<img src="https://color-crash.s3.amazonaws.com/velocity_components_visualization.gif" height="400" />
+<img src="https://color-crash.s3.amazonaws.com/velocity_components_visualization.gif" height="600" />
 
-This is a snippet from the Ball object constructor. The Ball constructor takes the angle and power properties from the Launcher object as arguments. A vector has both magnitude and a direction so the user-selected power (magnitude) and angle(direction) is the vector upon which the ball initially moves. The horizontal and vertical components of the vector can be determined by using the formulas **V<sub>x</sub> = cos *θ* &middot; power** and  **V<sub>y</sub> = sin *θ* &middot; power**. The power is divided by 20 and 2 respectively to control the velocity of the ball so that the ball does not leave the game view. 
+This is a snippet from the Ball constructor function. The Ball constructor takes the angle and power properties from the Launcher object as arguments. A vector has both magnitude and a direction. The user-selected power (magnitude) and angle(direction) is the vector upon which the ball initially moves. The horizontal and vertical components of the vector can be determined by using the formulas **V<sub>x</sub> = cos *θ* &middot; power** and  **V<sub>y</sub> = sin *θ* &middot; power**. See visualization above. The power is divided by 20 and 2 respectively to control the velocity of the ball so that the ball does not leave the game view. 
 <br>
 <br>
 ```

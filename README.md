@@ -121,7 +121,7 @@ drawBackground() {
 
 ## Legal
 
-Attributions for resources used in this project
+Attributions for resources used in this project:
 
 ### Images
 * [UI Background](https://www.wallpapertip.com/wpic/oJiomw_light-colorful-background-hd/)

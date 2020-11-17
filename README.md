@@ -44,11 +44,9 @@ In addition to the entry file, the following scripts are employed in the game's 
 This project was built with physics emulation as a focal point. I wanted the movement of the ball to be convincingly realistic to players. To accomplish this, I had to review many physics and trigonometry concepts. Below are some examples of these concepts translated into code:
 <br>
 ```
-
 this.angle = angle * (Math.PI / 180); 
 this.vx = Math.cos(this.angle) * (this.power / 20);
 this.vy = Math.sin(this.angle) * (this.power / 2);
-
 ```
 <p align="center">
   <img src="https://color-crash.s3.amazonaws.com/velocity_components_visualization.gif" height="400" />
@@ -99,7 +97,6 @@ move() {
   this.y += this.vy;
   this.drawBall();
 }
-
 ```
 
 Above is the `move` method of the Ball object. Constants are instantiated for gravity, friction, and energy-loss on bounce or collision. The move function is invoked on every frame. Gravity is a force that acts upon the ball on every frame and allows for smooth parabolic movement. This function is also checking on every frame if a bounce is imminent. If the Ball is about to bounce the sign of the Ball's vertical velocity is reversed, effectively reversing the direction of travel, after applying an energy loss coefficient. The other 2 conditionals this function is listening for are for the horizontal movement of the Ball. Because the canvas that comprises the game view is only 1400 pixels wide, I needed to control the horizontal movement of the Ball so that it will not exit the game view but this presented the challenge of the Ball not moving realistically. I solved this problem by using an infinitely scrolling background image to mimic horizontal travel.
@@ -114,7 +111,6 @@ drawBackground() {
   this.ctx.drawImage(this.backGround, -this.scrollPos, 0, this.canvas.width, this.canvas.height);
   this.ctx.drawImage(this.backGround, this.canvas.width - this.scrollPos, 0, this.canvas.width, this.canvas.height);
 }
-    
  ```
  The background is drawn on a separate parallax background canvas as the objects in the game will move at different speeds. Infinite scrolling is executed by stitching an duplicate of the background image to itself. As the image scrolls and exits the game view, the duplicate image begins to be drawn. The scroll position will reset once it exceeds the width of the game view.
  

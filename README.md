@@ -23,9 +23,9 @@ Color Crash is a side scrolling browser game where the player initially launches
 
 This game is constructed with the following technologies:
 
-* Javascript for the game logic
+* JavaScript for the game logic
 * HTML5 Canvas for graphics rendering on the game view
-* Webpack as the Javascript module bundler
+* Webpack as the JavaScript module bundler
 * CSS to style the UI
 
 I utilized the object-oriented programming paradigm so that different objects could interact and communicate with each other. Game animation is achieved by using the Window method, requestAnimationFrame, and drawing onto the DOM/canvas(es) every frame. 
@@ -43,7 +43,7 @@ In addition to the entry file, the following scripts are employed in the game's 
 
 This project was built with physics emulation as a focal point. I wanted the movement of the ball to be convincingly realistic to players. To accomplish this, I had to review many physics and trigonometry concepts. Below are some examples of these concepts translated into code:
 <br>
-```
+```JavaScript
 this.angle = angle * (Math.PI / 180); 
 this.vx = Math.cos(this.angle) * (this.power / 20);
 this.vy = Math.sin(this.angle) * (this.power / 2);
@@ -55,13 +55,13 @@ this.vy = Math.sin(this.angle) * (this.power / 2);
 This is a snippet from the Ball constructor function. The Ball constructor takes the angle and power properties from the Launcher object as arguments. A vector has both magnitude and a direction. The user-selected power (magnitude) and angle(direction) is the vector upon which the ball initially moves. The horizontal and vertical components of the vector can be determined by using the formulas **V<sub>x</sub> = cos *θ* &middot; power** and  **V<sub>y</sub> = sin *θ* &middot; power**. See visualization above. The power is divided by 20 and 2 respectively to control the velocity of the ball so that the ball does not leave the game view. 
 <br>
 <br>
-```
+```JavaScript
 const gravity = .1; 
 const bounce = 0.88; 
 const friction = 0.90; 
 ```
 
-```
+```JavaScript
 move() {
   this.vy += gravity;
   this.distanceTraveled();
@@ -75,7 +75,6 @@ move() {
       }
   }
 
-  
   if (this.vx < .05 && this.vy < .2 && this.vy > -.2) {
       this.vy = 0;
       this.vx -= .075;
@@ -101,7 +100,7 @@ move() {
 
 Above is the `move` method of the Ball object. Constants are instantiated for gravity, friction, and energy-loss on bounce or collision. The move function is invoked on every frame. Gravity is a force that acts upon the ball on every frame and allows for smooth parabolic movement. This function is also checking on every frame if a bounce is imminent. If the Ball is about to bounce the sign of the Ball's vertical velocity is reversed, effectively reversing the direction of travel, after applying an energy loss coefficient. The other 2 conditionals this function is listening for are for the horizontal movement of the Ball. Because the canvas that comprises the game view is only 1400 pixels wide, I needed to control the horizontal movement of the Ball so that it will not exit the game view but this presented the challenge of the Ball not moving realistically. I solved this problem by using an infinitely scrolling background image to mimic horizontal travel.
 
-```
+```JavaScript
 drawBackground() {
   if (this.scrollPos >= this.canvas.width) {
       this.scrollPos = 0; 

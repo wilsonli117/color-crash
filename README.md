@@ -4,7 +4,9 @@
 
 Color Crash is a side scrolling browser game where the player initially launches a ball with an angle and a power percentage. The player's score is determined by the distance the ball travels. After the initial launch, the ball will have it's velocity and height altered each time it hits the ground or a block. The playing map is always populated with 3 colored blocks (out of 7 distinct colors) that will affect the ball's velocity differently. The round is over when the ball no longer has velocity or makes contact with a green block. 
 
-![Color Crash Demo GIF](https://color-crash.s3.amazonaws.com/color_crash_gif.gif)
+<p align="center">
+  <img src="./src/images/color_crash_gif.gif" height="292" />
+</p>
 
 ## Features
 
@@ -42,15 +44,15 @@ In addition to the entry file, the following scripts are employed in the game's 
 This project was built with physics emulation as a focal point. I wanted the movement of the ball to be convincingly realistic to players. To accomplish this, I had to review many physics and trigonometry concepts. Below are some examples of these concepts translated into code:
 <br>
 ```
-
 this.angle = angle * (Math.PI / 180); 
 this.vx = Math.cos(this.angle) * (this.power / 20);
 this.vy = Math.sin(this.angle) * (this.power / 2);
-
 ```
-<img src="https://color-crash.s3.amazonaws.com/velocity_components_visualization.gif" height="400" />
+<p align="center">
+  <img src="https://color-crash.s3.amazonaws.com/velocity_components_visualization.gif" height="400" />
+</p>
 
-This is a snippet from the Ball object constructor. The Ball constructor takes the angle and power properties from the Launcher object as arguments. A vector has both magnitude and a direction so the user-selected power (magnitude) and angle(direction) is the vector upon which the ball initially moves. The horizontal and vertical components of the vector can be determined by using the formulas **V<sub>x</sub> = cos *θ* &middot; power** and  **V<sub>y</sub> = sin *θ* &middot; power**. The power is divided by 20 and 2 respectively to control the velocity of the ball so that the ball does not leave the game view. 
+This is a snippet from the Ball constructor function. The Ball constructor takes the angle and power properties from the Launcher object as arguments. A vector has both magnitude and a direction. The user-selected power (magnitude) and angle(direction) is the vector upon which the ball initially moves. The horizontal and vertical components of the vector can be determined by using the formulas **V<sub>x</sub> = cos *θ* &middot; power** and  **V<sub>y</sub> = sin *θ* &middot; power**. See visualization above. The power is divided by 20 and 2 respectively to control the velocity of the ball so that the ball does not leave the game view. 
 <br>
 <br>
 ```
@@ -95,7 +97,6 @@ move() {
   this.y += this.vy;
   this.drawBall();
 }
-
 ```
 
 Above is the `move` method of the Ball object. Constants are instantiated for gravity, friction, and energy-loss on bounce or collision. The move function is invoked on every frame. Gravity is a force that acts upon the ball on every frame and allows for smooth parabolic movement. This function is also checking on every frame if a bounce is imminent. If the Ball is about to bounce the sign of the Ball's vertical velocity is reversed, effectively reversing the direction of travel, after applying an energy loss coefficient. The other 2 conditionals this function is listening for are for the horizontal movement of the Ball. Because the canvas that comprises the game view is only 1400 pixels wide, I needed to control the horizontal movement of the Ball so that it will not exit the game view but this presented the challenge of the Ball not moving realistically. I solved this problem by using an infinitely scrolling background image to mimic horizontal travel.
@@ -110,7 +111,6 @@ drawBackground() {
   this.ctx.drawImage(this.backGround, -this.scrollPos, 0, this.canvas.width, this.canvas.height);
   this.ctx.drawImage(this.backGround, this.canvas.width - this.scrollPos, 0, this.canvas.width, this.canvas.height);
 }
-    
  ```
  The background is drawn on a separate parallax background canvas as the objects in the game will move at different speeds. Infinite scrolling is executed by stitching an duplicate of the background image to itself. As the image scrolls and exits the game view, the duplicate image begins to be drawn. The scroll position will reset once it exceeds the width of the game view.
  
@@ -121,7 +121,7 @@ drawBackground() {
 
 ## Legal
 
-Attributions for resources used in this project
+Attributions for resources used in this project:
 
 ### Images
 * [UI Background](https://www.wallpapertip.com/wpic/oJiomw_light-colorful-background-hd/)

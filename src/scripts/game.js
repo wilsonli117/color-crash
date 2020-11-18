@@ -204,6 +204,8 @@ export class Game {
             this.bgMusic.currentTime = 0; //resets position of audio playback
             this.gamectx.beginPath();
             this.gamectx.rect((this.gamecanvas.width / 2) - 250, 170, 500, 300);
+            this.gamectx.fillStyle = "rgba(255, 255, 255, 0.35)";
+            this.gamectx.fill();
             this.gamectx.stroke();
             this.gamectx.textAlign = "center"
             this.gamectx.strokeText('GAME OVER', (this.gamecanvas.width / 2), 220);

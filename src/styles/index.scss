@@ -1,5 +1,4 @@
 html {
-    overflow: hidden;
     background-image: url('../images/pageBG.jpg');
     background-position: center;
     background-size: auto;
@@ -67,21 +66,28 @@ body {
  justify-content: center;
 }
 
-#about {
+#under-canvas {
     position: absolute;
-    top: 720px;
+    top: 728px;
+    width: 1400px;
+    margin: 10px 0 10px 0;
+}
+
+#about {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: 1400px;
+   
+    align-items: center;
     height: 260px;
 }
 
 #contact {
     display: flex;
     flex-direction: column;
-
+    justify-content: flex-start;
     align-items: center;
+    height: 260px;
+    margin-right: 9px;
     i {
         color: black;
         margin: 20px 0 20px 0;
@@ -101,23 +107,30 @@ body {
 #about-split {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
+    width: 1270px;
 }
 
 #instructions {
     width: 630px;
     border: 1px solid black;
-    margin: 0 10px 5px 0;
-    padding: 0 30px 10px 30px;
+    padding: 0 30px 0 30px;
     box-sizing: border-box;
-    line-height: 2;
     font-size: 16px;
+    height: 260px;
+    > p {
+        line-height: 2;
+        margin: 0 0 5px 0;
+        padding-top: 10px
+    }
     p:first-child {
         font-weight: bold;
         font-size: 20px;
+        padding-top: 0;
         margin-top: 5px;
         margin-bottom: 10px;
         text-align: center;
+        line-height: 1;
     }
 
 }
@@ -128,7 +141,7 @@ body {
     flex-direction: column;
     width: 630px;
     border: 1px solid black;
-    margin-bottom: 5px;
+    box-sizing: border-box;
     > p {
         font-weight: bold;
         font-size: 20px;
@@ -141,7 +154,7 @@ body {
        flex-direction: row;
        align-items: center;
        height: 20px;
-       padding: 0 30px 10px 30px;
+       padding: 5px 30px 5px 30px;
        > div {
            width: 50px;
            height: 20px;

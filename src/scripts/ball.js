@@ -133,7 +133,7 @@ export class Ball {
             this.vy *= -bounce;
             this.vx *= friction;
             this.scrollSpeed = Math.floor(this.vx * 7);
-            if (Math.abs(this.vy) > 2) {
+            if (Math.abs(this.vy) > 1.5) {
                 this.bounceSF.play();
             }
         }
